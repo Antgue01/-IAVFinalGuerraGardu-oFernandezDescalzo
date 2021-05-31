@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/Futbol/[Ll]ibrary/
-/Futbol/[Tt]emp/
-/Futbol/[Oo]bj/
-/Futbol/[Bb]uild/
-/Futbol/[Bb]uilds/
-/Futbol/[Ll]ogs/
-/Futbol/[Mm]emoryCaptures/
+/IA Futbol/[Ll]ibrary/
+/IA Futbol/[Tt]emp/
+/IA Futbol/[Oo]bj/
+/IA Futbol/[Bb]uild/
+/IA Futbol/[Bb]uilds/
+/IA Futbol/[Ll]ogs/
+/IA Futbol/[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta

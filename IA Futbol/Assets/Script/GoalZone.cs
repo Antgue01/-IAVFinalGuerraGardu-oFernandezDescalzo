@@ -5,7 +5,7 @@ using UnityEngine;
 public class GoalZone : MonoBehaviour
 {
     
-    [SerializeField] int Team;
+    [SerializeField] Team Team;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameManager.getInstance().Goal(Team);

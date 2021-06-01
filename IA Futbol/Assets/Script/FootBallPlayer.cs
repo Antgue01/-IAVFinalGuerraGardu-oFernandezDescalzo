@@ -4,13 +4,21 @@ using UnityEngine;
 public class FootBallPlayer : MonoBehaviour
 {
     bool hasBall = false;
-    enum Team { TeamA, TeamB };
+    List<FootBallPlayer> team;
+    float limitAttackX, limitDefenseX;
+
     [SerializeField] Team myTeam;
+    [SerializeField] Rol myRol;
 
     public void setHasBall(bool b) { hasBall = b; }
     public bool getHasBall() { return hasBall; }
     [SerializeField] float ShootPower = 2;
     [SerializeField] float PassPower = .2f;
+
+    public void Start()
+    {
+        team = GameManager.getInstance().getTeam(myTeam);
+    }
     public void Shoot(Vector2 dir)
     {
         if (hasBall)

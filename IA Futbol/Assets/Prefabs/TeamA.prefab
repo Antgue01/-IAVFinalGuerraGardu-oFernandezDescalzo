@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 323923329098744705}
   - component: {fileID: 6981655358759138459}
+  - component: {fileID: 6789750831311803391}
   m_Layer: 0
   m_Name: ConeVision
   m_TagString: Untagged
@@ -47,6 +48,18 @@ MonoBehaviour:
   m_distance: 3
   m_isTrigger: 1
   m_isFixScale: 1
+--- !u!114 &6789750831311803391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120345784275914726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8692665326a07342919325204b6a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7603920269577693899
 GameObject:
   m_ObjectHideFlags: 0

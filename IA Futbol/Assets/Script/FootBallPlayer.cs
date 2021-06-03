@@ -4,6 +4,7 @@ using UnityEngine;
 public class FootBallPlayer : MonoBehaviour
 {
     bool hasBall = false;
+    bool dangered = false;
     List<FootBallPlayer> team;
     float limitAttackX, limitDefenseX;
 
@@ -15,9 +16,22 @@ public class FootBallPlayer : MonoBehaviour
     [SerializeField] float ShootPower = 2;
     [SerializeField] float PassPower = .2f;
 
+
     public void Start()
     {
         team = GameManager.getInstance().getTeam(myTeam);
+    }
+    public Team getMyTeam()
+    {
+        return myTeam;
+    }
+    public bool isInDanger()
+    {
+        return dangered;
+    }
+    public void setDangered(bool v)
+    {
+        dangered = v;
     }
     public void Shoot(Vector2 dir)
     {

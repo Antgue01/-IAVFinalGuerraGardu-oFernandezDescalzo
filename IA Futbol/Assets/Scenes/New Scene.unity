@@ -221,16 +221,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: myRol
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -301,6 +316,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 424670326}
     m_Modifications:
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
       propertyPath: m_RootOrder
@@ -361,6 +386,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeamA (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}
 --- !u!4 &224958246 stripped
@@ -376,11 +406,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -838,16 +883,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: myRol
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -923,6 +983,11 @@ PrefabInstance:
       propertyPath: myRol
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
       propertyPath: m_RootOrder
@@ -1015,7 +1080,7 @@ PrefabInstance:
     - target: {fileID: 6195661992839181210, guid: cec21c2b9d2ddde4a9e773a804f7b26c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.7
+      value: -15.5
       objectReference: {fileID: 0}
     - target: {fileID: 6195661992839181210, guid: cec21c2b9d2ddde4a9e773a804f7b26c,
         type: 3}
@@ -1067,6 +1132,12 @@ PrefabInstance:
 --- !u!4 &604712131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6195661992839181210, guid: cec21c2b9d2ddde4a9e773a804f7b26c,
+    type: 3}
+  m_PrefabInstance: {fileID: 604712130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &604712132 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3327008639069001530, guid: cec21c2b9d2ddde4a9e773a804f7b26c,
     type: 3}
   m_PrefabInstance: {fileID: 604712130}
   m_PrefabAsset: {fileID: 0}
@@ -1298,6 +1369,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 424670326}
     m_Modifications:
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
       propertyPath: m_RootOrder
@@ -1357,6 +1438,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TeamA (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}
@@ -1538,6 +1624,16 @@ PrefabInstance:
       propertyPath: myRol
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
       propertyPath: m_RootOrder
@@ -1597,6 +1693,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TeamA (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}
@@ -1884,6 +1985,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 424670326}
     m_Modifications:
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
       propertyPath: m_RootOrder
@@ -1944,6 +2055,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeamA (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}
 --- !u!4 &994833574 stripped
@@ -1963,6 +2079,16 @@ PrefabInstance:
         type: 3}
       propertyPath: myRol
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
@@ -2023,6 +2149,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TeamA (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}
@@ -2150,11 +2281,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 6684631060975200857, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: mBehaviorSource.behaviorName
@@ -2295,7 +2441,7 @@ PrefabInstance:
     - target: {fileID: 6195661992839181210, guid: cec21c2b9d2ddde4a9e773a804f7b26c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.7
+      value: 15.29
       objectReference: {fileID: 0}
     - target: {fileID: 6195661992839181210, guid: cec21c2b9d2ddde4a9e773a804f7b26c,
         type: 3}
@@ -2355,6 +2501,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1166206418}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1166206420 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3327008639069001530, guid: cec21c2b9d2ddde4a9e773a804f7b26c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1166206418}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1236443754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2362,16 +2514,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: myRol
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -2447,6 +2614,16 @@ PrefabInstance:
       propertyPath: myRol
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
       propertyPath: m_RootOrder
@@ -2507,6 +2684,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeamA (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}
 --- !u!4 &1297303165 stripped
@@ -2526,6 +2708,16 @@ PrefabInstance:
         type: 3}
       propertyPath: myRol
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
@@ -2586,6 +2778,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TeamA (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}
@@ -2772,6 +2969,11 @@ PrefabInstance:
       propertyPath: myRol
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -2842,16 +3044,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: myRol
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -2982,6 +3199,16 @@ PrefabInstance:
       propertyPath: myRol
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
       propertyPath: m_RootOrder
@@ -3042,6 +3269,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeamA (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}
 --- !u!4 &1695856739 stripped
@@ -3057,16 +3289,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: myRol
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -3310,6 +3557,16 @@ PrefabInstance:
       propertyPath: myRol
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
       propertyPath: m_RootOrder
@@ -3370,6 +3627,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeamA (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}
 --- !u!4 &1877725565 stripped
@@ -3385,11 +3647,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -3638,16 +3915,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: myRol
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -3754,16 +4046,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892783141}
     m_Modifications:
+    - target: {fileID: 554303952548799657, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_Name
       value: TeamB (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: myRol
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6311867168380311233, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 604712132}
     - target: {fileID: 8816991146380758525, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_RootOrder
@@ -3905,6 +4212,16 @@ PrefabInstance:
       propertyPath: myRol
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2795992136151402285, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: goalZone
+      value: 
+      objectReference: {fileID: 1166206420}
+    - target: {fileID: 2120345784275914726, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 20efdc33aa4eee84c887d404d5247d63,
         type: 3}
       propertyPath: m_RootOrder
@@ -3964,6 +4281,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TeamA (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603920269577693899, guid: 20efdc33aa4eee84c887d404d5247d63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20efdc33aa4eee84c887d404d5247d63, type: 3}

@@ -66,19 +66,21 @@ public class GameManager : MonoBehaviour
         return aux;
     }
 
-    public float getLimit(int idZona)
+    public float getDefenseZone(Team team)
     {
-        if(idZona == 0) //ZonaA
-        {
+        if (team == Team.TeamA)
             return zonaA.position.x;
-        }
-        else if(idZona == 1) //ZonaB
-        {
-            return zonaB.position.x;
-        }
-        else //Mediocampo
-        {
-            return zonaMedio.position.x;
-        }
+        else return zonaB.position.x;
     }
+    public float getCenterZone()
+    {
+        return zonaMedio.position.x;
+    }
+    public float getAttackZone(Team team)
+    {
+        if (team == Team.TeamA)
+            return zonaB.position.x;
+        else return zonaA.position.x;
+    }
+   
 }

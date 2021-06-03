@@ -6,20 +6,23 @@ public class FootBallPlayer : MonoBehaviour
     bool hasBall = false;
     bool dangered = false;
     List<FootBallPlayer> team;
-    float limitAttackX, limitDefenseX;
+    float limitAttackX,limitDefenseX;
 
     [SerializeField] Team myTeam;
     [SerializeField] Rol myRol;
-
+    [SerializeField] BoxCollider goalZone;
     public void setHasBall(bool b) { hasBall = b; }
     public bool getHasBall() { return hasBall; }
     [SerializeField] float ShootPower = 2;
     [SerializeField] float PassPower = .2f;
+    Vector3 shootDirection;
 
 
     public void Start()
     {
         team = GameManager.getInstance().getTeam(myTeam);
+        limitAttackX = GameManager.getInstance().getAttackZone(myTeam);
+        limitDefenseX = GameManager.getInstance().getDefenseZone(myTeam);
     }
     public Team getMyTeam()
     {
@@ -33,13 +36,13 @@ public class FootBallPlayer : MonoBehaviour
     {
         dangered = v;
     }
-    public void Shoot(Vector2 dir)
+    public void Shoot()
     {
-        if (hasBall)
+        if (hasBall && shootDirection != Vector3.zero)
         {
             Rigidbody2D ball = transform.GetChild(0).gameObject.GetComponent<Rigidbody2D>();
             if (ball)
-                ball.AddForce(dir * ShootPower, ForceMode2D.Impulse);
+                ball.AddForce(shootDirection * ShootPower, ForceMode2D.Impulse);
         }
     }
     public void Pass(FootBallPlayer mate)
@@ -53,4 +56,8 @@ public class FootBallPlayer : MonoBehaviour
 
         }
     }
+    public BoxCollider getGoalZone() { return goalZone; }
+    public void setShootDirection(Vector3 dir) { shootDirection = dir; }
+    public Vector3 getShootDirection() { return shootDirection; }
+    public List<FootBallPlayer> getTeam() { return team; }
 }

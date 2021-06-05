@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum Team : uint { TeamA = 0, TeamB = 1 };
+
+public enum Zone : uint { Goal, Attack, Center, Defense };
 public enum Rol : uint { Delantero = 0, Centro = 1, Defensa = 2, Portero = 3 };
 public class GameManager : MonoBehaviour
 {
@@ -82,5 +84,5 @@ public class GameManager : MonoBehaviour
             return zonaB.position.x;
         else return zonaA.position.x;
     }
-   
+
 }

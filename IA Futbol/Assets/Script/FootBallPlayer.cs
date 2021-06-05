@@ -6,7 +6,7 @@ public class FootBallPlayer : MonoBehaviour
     bool hasBall = false;
     bool dangered = false;
     List<FootBallPlayer> team;
-    float limitAttackX,limitDefenseX;
+    float limitAttackX, limitDefenseX;
 
     [SerializeField] Team myTeam;
     [SerializeField] Rol myRol;
@@ -60,4 +60,6 @@ public class FootBallPlayer : MonoBehaviour
     public void setShootDirection(Vector3 dir) { shootDirection = dir; }
     public Vector3 getShootDirection() { return shootDirection; }
     public List<FootBallPlayer> getTeam() { return team; }
+    public Vector3 getLimitAttack() { return new Vector3(limitAttackX, transform.position.x, transform.position.z); }
+    public Vector3 getLimitDefense() { return new Vector3(limitDefenseX, transform.position.x, transform.position.z); }
 }

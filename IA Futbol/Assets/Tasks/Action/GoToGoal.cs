@@ -15,8 +15,6 @@ public class GoToGoal : Action
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         goalZone = GetComponent<FootBallPlayer>().getGoalZone().transform;
-        target = transform.position + (goalZone.position - transform.position).normalized;
-
     }
 
     /// <summary>
@@ -26,6 +24,7 @@ public class GoToGoal : Action
     {
         navMeshAgent.isStopped = false;
         SetDestination(target);
+        target = goalZone.position;
     }
 
     // Seek the destination. Return success once the agent has reached the destination.

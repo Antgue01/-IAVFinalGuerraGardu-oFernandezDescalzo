@@ -9,7 +9,8 @@ public class Ball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnCollisionEnter(Collision collision)
     {
         FootBallPlayer player = collision.gameObject.GetComponent<FootBallPlayer>();
         if (player)

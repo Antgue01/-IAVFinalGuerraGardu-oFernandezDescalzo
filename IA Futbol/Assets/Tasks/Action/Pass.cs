@@ -13,21 +13,33 @@ public class Pass : Action
     public override void OnAwake()
     {
         player = GetComponent<FootBallPlayer>();
-        team = player.getTeam();
     }
+
+    public override void OnStart()
+    {
+        team = player.getTeam();
+        for(int i=0; i<team.Count; i++)
+        {
+            Debug.Log(team[i].getMyTeam());
+        }
+    }
+
     public override TaskStatus OnUpdate()
     {
         List<FootBallPlayer> canPass = new List<FootBallPlayer>();
+        RaycastHit info;
         foreach (FootBallPlayer canPassPlayer in team)
         {
             if (canPassPlayer != player)
             {
-                int layer = 1 << PlayersLayer;
                 Vector3 direction = canPassPlayer.transform.position - player.transform.position;
-                RaycastHit info;
-                bool collides = Physics.Raycast(player.transform.position, direction, out info, direction.magnitude, layer);
+                bool collides = Physics.Raycast(player.transform.position, direction.normalized, out info, direction.magnitude, PlayersLayer);
+                Debug.DrawRay(player.transform.position, direction, Color.red, 3);
+                
                 //si no hay nadie en medio o si lo que hay es alguien de mi equipo
-                if (!collides || (collides && info.collider.GetComponent<FootBallPlayer>().getMyTeam() == player.getMyTeam()))
+                if(info.collider.GetComponent<FootBallPlayer>() == null) Debug.Log(info.collider.gameObject.name);
+                Team myTeam = info.collider.GetComponent<FootBallPlayer>().getMyTeam();
+                if (!collides || (collides && myTeam == player.getMyTeam()))
                 {
                     canPass.Add(canPassPlayer);
                 }

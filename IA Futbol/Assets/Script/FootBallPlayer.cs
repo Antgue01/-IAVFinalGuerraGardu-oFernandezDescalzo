@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class FootBallPlayer : MonoBehaviour
 {
     bool hasBall = false;
@@ -18,44 +19,38 @@ public class FootBallPlayer : MonoBehaviour
     Vector3 shootDirection;
 
 
-    public void Start()
+    private void Start()
     {
         team = GameManager.getInstance().getTeam(myTeam);
         limitAttackX = GameManager.getInstance().getAttackZone(myTeam);
         limitDefenseX = GameManager.getInstance().getDefenseZone(myTeam);
     }
-    public Team getMyTeam()
-    {
-        return myTeam;
-    }
-    public bool isInDanger()
-    {
-        return dangered;
-    }
-    public void setDangered(bool v)
-    {
-        dangered = v;
-    }
     public void Shoot()
     {
         if (hasBall && shootDirection != Vector3.zero)
         {
-            Rigidbody2D ball = transform.GetChild(0).gameObject.GetComponent<Rigidbody2D>();
+            Rigidbody ball = transform.GetChild(1).gameObject.GetComponent<Rigidbody>();
             if (ball)
-                ball.AddForce(shootDirection * ShootPower, ForceMode2D.Impulse);
+                ball.AddForce(shootDirection * ShootPower, ForceMode.Impulse);
         }
     }
     public void Pass(FootBallPlayer mate)
     {
         if (mate != this && myTeam == mate.myTeam)
         {
-            Rigidbody2D ball = transform.GetChild(0).gameObject.GetComponent<Rigidbody2D>();
+            Rigidbody ball = transform.GetChild(1).gameObject.GetComponent<Rigidbody>();
+            ball.transform.SetParent(null);
             Vector2 dir = mate.transform.position - transform.position;
             if (ball)
-                ball.AddForce(dir.normalized * dir.magnitude * PassPower, ForceMode2D.Impulse);
-
+            {
+                ball.AddForce(dir.normalized * dir.magnitude * PassPower, ForceMode.Impulse);
+                hasBall = false;
+            }
         }
     }
+    public Team getMyTeam() { return myTeam; }
+    public bool isInDanger() { return dangered; }
+    public void setDangered(bool v) { dangered = v; }
     public BoxCollider getGoalZone() { return goalZone; }
     public void setShootDirection(Vector3 dir) { shootDirection = dir; }
     public Vector3 getShootDirection() { return shootDirection; }

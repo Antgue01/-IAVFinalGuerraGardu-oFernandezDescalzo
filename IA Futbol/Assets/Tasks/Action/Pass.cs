@@ -18,10 +18,6 @@ public class Pass : Action
     public override void OnStart()
     {
         team = player.getTeam();
-        for(int i=0; i<team.Count; i++)
-        {
-            Debug.Log(team[i].getMyTeam());
-        }
     }
 
     public override TaskStatus OnUpdate()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     Rigidbody rb;
+    FootBallPlayer owner;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -18,15 +19,11 @@ public class Ball : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
-            if (transform.parent != null)
+            if (owner != null)
             {
-                FootBallPlayer parent = transform.parent.gameObject.GetComponent<FootBallPlayer>();
-                if (parent)
-                    parent.setHasBall(false);
-
+                owner.setHasBall(false, this);
             }
-            player.setHasBall(true);
-            transform.SetParent(collision.transform);
+            player.setHasBall(true, this);
         }
     }
 }

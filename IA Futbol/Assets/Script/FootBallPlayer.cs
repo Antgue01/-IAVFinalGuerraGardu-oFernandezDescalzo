@@ -5,6 +5,7 @@ using UnityEngine;
 public class FootBallPlayer : MonoBehaviour
 {
     bool hasBall = false;
+    Ball myBall;
     bool dangered = false;
     List<FootBallPlayer> team;
     float limitAttackX, limitDefenseX;
@@ -12,8 +13,6 @@ public class FootBallPlayer : MonoBehaviour
     [SerializeField] Team myTeam;
     [SerializeField] Rol myRol;
     [SerializeField] BoxCollider goalZone;
-    public void setHasBall(bool b) { hasBall = b; }
-    public bool getHasBall() { return hasBall; }
     [SerializeField] float ShootPower = 2;
     [SerializeField] float PassPower = .2f;
     Vector3 shootDirection;
@@ -25,25 +24,31 @@ public class FootBallPlayer : MonoBehaviour
         limitAttackX = GameManager.getInstance().getAttackZone(myTeam);
         limitDefenseX = GameManager.getInstance().getDefenseZone(myTeam);
     }
+
+    private void Update()
+    {
+        if (hasBall)
+        {
+            myBall.transform.position = transform.position + transform.forward;
+        }
+    }
     public void Shoot()
     {
         if (hasBall && shootDirection != Vector3.zero)
         {
-            Rigidbody ball = transform.GetChild(1).gameObject.GetComponent<Rigidbody>();
-            if (ball)
-                ball.AddForce(shootDirection * ShootPower, ForceMode.Impulse);
+            Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
+            ballrb.AddForce(shootDirection * ShootPower, ForceMode.Impulse);
         }
     }
     public void Pass(FootBallPlayer mate)
     {
         if (mate != this && myTeam == mate.myTeam)
         {
-            Rigidbody ball = transform.GetChild(1).gameObject.GetComponent<Rigidbody>();
-            ball.transform.SetParent(null);
             Vector2 dir = mate.transform.position - transform.position;
-            if (ball)
+            if (hasBall)
             {
-                ball.AddForce(dir.normalized * dir.magnitude * PassPower, ForceMode.Impulse);
+                Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
+                ballrb.AddForce(dir.normalized * dir.magnitude * PassPower, ForceMode.Impulse);
                 hasBall = false;
             }
         }
@@ -57,4 +62,6 @@ public class FootBallPlayer : MonoBehaviour
     public List<FootBallPlayer> getTeam() { return team; }
     public Vector3 getLimitAttack() { return new Vector3(limitAttackX, transform.position.x, transform.position.z); }
     public Vector3 getLimitDefense() { return new Vector3(limitDefenseX, transform.position.x, transform.position.z); }
+    public void setHasBall(bool b, Ball ball) { hasBall = b; if (b) myBall = ball; else myBall = null; }
+    public bool getHasBall() { return hasBall; }
 }

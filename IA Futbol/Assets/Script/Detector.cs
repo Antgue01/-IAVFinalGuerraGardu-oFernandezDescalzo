@@ -10,7 +10,6 @@ public class Detector : MonoBehaviour
         FootBallPlayer playerFootball = GetComponentInParent<FootBallPlayer>();
         if (footBall && playerFootball && footBall.getMyTeam() != playerFootball.getMyTeam())
         {
-            Debug.Log("Detectado");
             playerFootball.setDangered(true);
         }
     }

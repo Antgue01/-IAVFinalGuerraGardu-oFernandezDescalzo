@@ -26,11 +26,11 @@ public class Pass : Action
         RaycastHit info;
         foreach (FootBallPlayer canPassPlayer in team)
         {
-            if (canPassPlayer != player)
+            if (canPassPlayer != player && !canPassPlayer.isInDanger())
             {
                 Vector3 direction = canPassPlayer.transform.position - player.transform.position;
                 bool collides = Physics.Raycast(player.transform.position, direction.normalized, out info, direction.magnitude, PlayersLayer);
-                Debug.DrawRay(player.transform.position, direction, Color.red, 3);
+                Debug.DrawRay(player.transform.position, direction, Color.red,3);
                 
                 //si no hay nadie en medio o si lo que hay es alguien de mi equipo
                 if(info.collider.GetComponent<FootBallPlayer>() == null) Debug.Log(info.collider.gameObject.name);
@@ -47,8 +47,10 @@ public class Pass : Action
         {
             float distance = (footBallPlayer.getGoalZone().transform.position - footBallPlayer.transform.position).magnitude;
             if (distance < targetDistance)
+            {
                 furthest = footBallPlayer;
-            targetDistance = distance;
+                targetDistance = distance;
+            }
         }
         player.Pass(furthest);
         return TaskStatus.Success;

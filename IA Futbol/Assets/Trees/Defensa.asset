@@ -20,9 +20,9 @@ MonoBehaviour:
       parentIndex: 
       startIndex: 
       variableStartIndex: 
-      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(557.184937,-515.6115)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(3.40277481,120.06958)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.ConditionalEvaluator","NodeData":{"Offset":"(-0.565979,150.952454)"},"ID":2,"Name":"Conditional
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(557.184937,-515.6115)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.ConditionalEvaluator","NodeData":{"Offset":"(0,158.888947)"},"ID":1,"Name":"Conditional
         Evaluator","Instant":true,"SharedBoolreevaluate":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"ConditionalconditionalTask":{"Type":"HasBall"},"Children":[{"Type":"Pass","NodeData":{"Offset":"(1.74601173,145.6351)","Comment":"si
-        no puedo tirar paso"},"ID":3,"Name":"Pass","Instant":true,"LayerMaskPlayersLayer":256}]}]}}'
+        no puedo tirar paso"},"ID":2,"Name":"Pass","Instant":true,"LayerMaskPlayersLayer":256}]}}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 

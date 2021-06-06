@@ -15,14 +15,25 @@ public class FootBallPlayer : MonoBehaviour
     [SerializeField] BoxCollider goalZone;
     [SerializeField] float ShootPower = 2;
     [SerializeField] float PassPower = .2f;
+    Vector3 initialPos;
     Vector3 shootDirection;
 
 
     private void Start()
     {
+        initialPos = transform.position;
         team = GameManager.getInstance().getTeam(myTeam);
-        limitAttackX = GameManager.getInstance().getAttackZone(myTeam);
-        limitDefenseX = GameManager.getInstance().getDefenseZone(myTeam);
+        limitAttackX = GameManager.getInstance().getAttackZone(myTeam,myRol);
+        limitDefenseX = GameManager.getInstance().getDefenseZone(myTeam,myRol);
+    }
+    public void reset()
+    {
+        transform.position = initialPos;
+        hasBall = false;
+        shootDirection = Vector3.zero;
+        dangered = false;
+        myBall = null;
+
     }
 
     private void Update()
@@ -30,25 +41,35 @@ public class FootBallPlayer : MonoBehaviour
         if (hasBall)
         {
             myBall.transform.position = transform.position + transform.forward;
+
         }
     }
     public void Shoot()
     {
         if (hasBall && shootDirection != Vector3.zero)
         {
+            transform.LookAt(shootDirection + transform.position);
+            myBall.transform.position = transform.position + transform.forward;
             Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
-            ballrb.AddForce(shootDirection * ShootPower, ForceMode.Impulse);
+            ballrb.AddForce(shootDirection.normalized * ShootPower * shootDirection.magnitude, ForceMode.Impulse);
+            hasBall = false;
+            myBall = null;
+            GameManager.getInstance().notifyGoalKeeper(myTeam);
         }
     }
     public void Pass(FootBallPlayer mate)
     {
         if (mate != this && myTeam == mate.myTeam)
         {
-            Vector2 dir = mate.transform.position - transform.position;
+            Vector3 dir = mate.transform.position - transform.position;
+
             if (hasBall)
             {
                 Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
+                transform.LookAt(mate.transform.position);
+                myBall.transform.position = transform.position + transform.forward;
                 ballrb.AddForce(dir.normalized * dir.magnitude * PassPower, ForceMode.Impulse);
+                myBall = null;
                 hasBall = false;
             }
         }

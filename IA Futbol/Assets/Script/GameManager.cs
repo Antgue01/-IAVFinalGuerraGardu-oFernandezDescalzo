@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public enum Team : uint { TeamA = 0, TeamB = 1 };
 
 public enum Zone : uint { Goal, Attack, Center, Defense };
-public enum Rol : uint { Delantero = 0, Centro = 1, Defensa = 2, Portero = 3 };
+public enum Rol : uint { Delantero = 0, Centro = 1, Defensa = 2 };
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance = null;
@@ -21,6 +21,39 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    private void Start()
+    {
+        foreach (Transform player in teamA)
+        {
+            FootBallPlayer football = player.gameObject.GetComponent<FootBallPlayer>();
+            if (football)
+                TeamAPlayers.Add(football);
+            else
+            {
+                GoalKeeper goalKeeper = player.gameObject.GetComponent<GoalKeeper>();
+                if (goalKeeper)
+                    goalKeeperTeamA = goalKeeper;
+            }
+        }
+        foreach (Transform player in teamB)
+        {
+            FootBallPlayer football = player.gameObject.GetComponent<FootBallPlayer>();
+            if (football)
+                TeamBPlayers.Add(football);
+            else
+            {
+                GoalKeeper goalKeeper = player.gameObject.GetComponent<GoalKeeper>();
+                if (goalKeeper)
+                    goalKeeperTeamB = goalKeeper;
+            }
+        }
+    }
+    public void notifyGoalKeeper(Team shooterTeam)
+    {
+        if (shooterTeam == Team.TeamA)
+            goalKeeperTeamB.Catch();
+        else goalKeeperTeamA.Catch();
     }
     public static GameManager getInstance()
     {
@@ -37,7 +70,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text[] teams = new Text[2];
     [SerializeField] string[] names = new string[2];
     [SerializeField] Transform teamA, teamB;
-    [SerializeField] Transform zonaA, zonaB, zonaMedio;
+    [SerializeField] Transform zonaA, zonaB, zonaMedio, goalZoneA, goalZoneB;
+    List<FootBallPlayer> TeamAPlayers = new List<FootBallPlayer>();
+    List<FootBallPlayer> TeamBPlayers = new List<FootBallPlayer>();
+    [SerializeField] Ball ball;
+    GoalKeeper goalKeeperTeamA;
+    GoalKeeper goalKeeperTeamB;
     public void Goal(Team team)
     {
         uint teamN = (uint)team;
@@ -46,43 +84,64 @@ public class GameManager : MonoBehaviour
         teams[teamN].text = goals[teamN].ToString();
         if (goals[teamN] >= MaxGoals)
             WinnerText.text = "Gana " + names[1 - teamN];
+        reset();
     }
 
     public List<FootBallPlayer> getTeam(Team team)
     {
         List<FootBallPlayer> aux = new List<FootBallPlayer>();
-        if (team == 0)
+        if (team == Team.TeamA)
+            return TeamAPlayers;
+        else return TeamBPlayers;
+    }
+
+    public float getDefenseZone(Team team, Rol role)
+    {
+        if (role == Rol.Centro)
+            return zonaMedio.position.x;
+        else if (team == Team.TeamA)
         {
-            foreach (Transform child in teamA)
-            {
-                aux.Add(child.gameObject.GetComponent<FootBallPlayer>());
-            }
+            if (role == Rol.Defensa) return zonaA.position.x;
+            else return zonaB.position.x;
         }
         else
         {
-            foreach (Transform child in teamB)
-            {
-                aux.Add(child.gameObject.GetComponent<FootBallPlayer>());
-            }
+            if (role == Rol.Defensa) return zonaB.position.x;
+            else return zonaA.position.x;
         }
-        return aux;
-    }
-
-    public float getDefenseZone(Team team)
-    {
-        if (team == Team.TeamA)
-            return zonaA.position.x;
-        else return zonaB.position.x;
     }
     public float getCenterZone()
     {
         return zonaMedio.position.x;
     }
-    public float getAttackZone(Team team)
+    public float getAttackZone(Team team, Rol role)
     {
         if (team == Team.TeamA)
-            return zonaB.position.x;
-        else return zonaA.position.x;
-    }
+        {
+            if (role == Rol.Centro)
+                return zonaB.position.x;
+            else if (role == Rol.Defensa) return zonaA.position.x;
+            else return goalZoneB.position.x;
+        }
+        else
+        {
+            if (role == Rol.Centro)
+                return zonaA.position.x;
+            else if (role == Rol.Defensa) return zonaB.position.x;
+            else return goalZoneA.position.x;
+        }
 
+    }
+    void reset()
+    {
+        foreach (FootBallPlayer player in TeamAPlayers)
+        {
+            player.reset();
+        }
+        foreach (FootBallPlayer player in TeamBPlayers)
+        {
+            player.reset();
+        }
+        ball.reset();
+    }
 }

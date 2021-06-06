@@ -9,7 +9,7 @@ public class CanShoot : Conditional
     private FootBallPlayer player;
     private BoxCollider goal;
     public LayerMask PlayersLayer;
-    [SerializeField] const float minimumDistance = 5;
+    [SerializeField] float minimumDistance = 5;
     public override void OnAwake()
     {
         player = GetComponent<FootBallPlayer>();
@@ -25,12 +25,13 @@ public class CanShoot : Conditional
             Vector3 corner2 = goal.bounds.center + goal.bounds.extents;
             bool intersects = false;
             int i = 0;
-            int layer = 1 << PlayersLayer;
             Vector3 interPoint = new Vector3();
             while (i < 5 && !intersects)
             {
                 interPoint = Vector3.Lerp(corner1, corner2, (float).2 * i);
-                if (Physics.Raycast(player.transform.position, interPoint - player.transform.position, layer))
+                Debug.DrawRay(player.transform.position, interPoint - player.transform.position,Color.black);
+                Vector3 dir = interPoint - player.transform.position;
+                if (Physics.Raycast(player.transform.position, dir.normalized, dir.magnitude, PlayersLayer))
                     intersects = true;
 
                 i++;
@@ -38,7 +39,7 @@ public class CanShoot : Conditional
             if (!intersects)
             {
                 Vector3 shootDirection = (Vector3.Lerp(corner1, corner2, Random.Range(0f, 1.000001f)) - player.transform.position);
-                player.setShootDirection(shootDirection.normalized);
+                player.setShootDirection(shootDirection);
                 return TaskStatus.Success;
             }
             else

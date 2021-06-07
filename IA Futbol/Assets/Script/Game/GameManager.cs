@@ -16,13 +16,14 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
+            initTeams();
         }
         else
         {
             Destroy(this.gameObject);
         }
     }
-    private void Start()
+    private void initTeams()
     {
         foreach (Transform player in teamA)
         {
@@ -92,7 +93,6 @@ public class GameManager : MonoBehaviour
 
     public List<FootBallPlayer> getTeam(Team team)
     {
-        List<FootBallPlayer> aux = new List<FootBallPlayer>();
         if (team == Team.TeamA)
             return TeamAPlayers;
         else return TeamBPlayers;

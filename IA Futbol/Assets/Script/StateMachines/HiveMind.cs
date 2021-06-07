@@ -8,8 +8,17 @@ public class HiveMind : MonoBehaviour
 {
     Vector3[] posDefensas;
 
-    public void init(List<FootBallPlayer> myTeam, List<FootBallPlayer> enemyTeam)
+    private void Start()
     {
+        init();
+    }
+
+    public void init()
+    {
+        Team MyTeam = Variables.Object(this.gameObject).Get("MyTeam").ConvertTo<Team>();
+        Team EnemyTeam = Variables.Object(this.gameObject).Get("EnemyTeam").ConvertTo<Team>();
+        List<FootBallPlayer> myTeam = GameManager.getInstance().getTeam(MyTeam);
+        List<FootBallPlayer> enemyTeam = GameManager.getInstance().getTeam(EnemyTeam);
         Variables.Object(this.gameObject).Set("MyPlayers", myTeam);
         Variables.Object(this.gameObject).Set("EnemyPlayers", enemyTeam);
 
@@ -32,7 +41,8 @@ public class HiveMind : MonoBehaviour
         if (defensas.Count != 0)
         {
             posDefensas = new Vector3[defensas.Count];
-            float defX = defensas[0].getLimitAttack() - ((defensas[0].getLimitAttack() - defensas[0].getGoalZone().transform.position.x) / 2.0f);
+            //float defX = (defensas[0].getGoalZone().transform.position.x + defensas[0].getLimitAttack()) / 2.0f;
+            float defX = defensas[0].getLimitAttack() - (Mathf.Abs(defensas[0].getGoalZone().transform.position.x - defensas[0].getLimitAttack()) / 2.0f);
             Collider campo = GameManager.getInstance().getCampo();
             //Separacion entre defensas
             float diffY = (campo.bounds.extents.z * 2) / defensas.Count;
@@ -71,6 +81,7 @@ public class HiveMind : MonoBehaviour
         {
             if (team[i].getHasBall())
                 hasPossession = true;
+            i++;
         }
         return hasPossession;
     }

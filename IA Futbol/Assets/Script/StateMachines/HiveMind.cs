@@ -74,7 +74,7 @@ public class HiveMind : MonoBehaviour
 
     public bool hasPossession(List<FootBallPlayer> team)
     {
-        Debug.Log("hasPossesion");
+
         bool hasPossession = false;
         int i = 0;
         while (i < team.Count && !hasPossession)
@@ -92,7 +92,7 @@ public class HiveMind : MonoBehaviour
 
     public void attack(List<FootBallPlayer> delanteros, List<FootBallPlayer> centros, List<FootBallPlayer> defensas)
     {
-        Debug.Log("attacvk");
+
         //Defensas
         //Distribuimos los defensas repartiendolos por su zona, cubriendo el mayor area posible preparados para defender
         for (int i = 0; i < defensas.Count; i++)

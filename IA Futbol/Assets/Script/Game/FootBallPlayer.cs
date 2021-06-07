@@ -25,8 +25,8 @@ public class FootBallPlayer : MonoBehaviour
     {
         initialPos = transform.position;
         team = GameManager.getInstance().getTeam(myTeam);
-        limitAttackX = GameManager.getInstance().getAttackZone(myTeam,myRol);
-        limitDefenseX = GameManager.getInstance().getDefenseZone(myTeam,myRol);
+        limitAttackX = GameManager.getInstance().getAttackZone(myTeam, myRol);
+        limitDefenseX = GameManager.getInstance().getDefenseZone(myTeam, myRol);
         navmesh = GetComponent<NavMeshAgent>();
     }
     public void reset()
@@ -40,9 +40,10 @@ public class FootBallPlayer : MonoBehaviour
     }
     public void goTo(Transform target)
     {
-        if(Vector3.Distance(transform.position, target.position) > 0.05)
+        if (Vector3.Distance(transform.position, target.position) > 0.05)
+        {
             navmesh.SetDestination(target.position);
-        Debug.Log("goto");
+        }
     }
     public void goTo(Vector3 target)
     {

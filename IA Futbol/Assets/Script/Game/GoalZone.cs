@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GoalZone : MonoBehaviour
 {
-    
+
     [SerializeField] Team Team;
     private void OnTriggerEnter(Collider collision)
     {
-        GameManager.getInstance().Goal(Team);
+        if (collision.GetComponent<Ball>())
+            GameManager.getInstance().Goal(Team);
     }
 }

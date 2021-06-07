@@ -40,7 +40,9 @@ public class FootBallPlayer : MonoBehaviour
     }
     public void goTo(Transform target)
     {
-        navmesh.SetDestination(target.position);
+        if(Vector3.Distance(transform.position, target.position) > 0.05)
+            navmesh.SetDestination(target.position);
+        Debug.Log("goto");
     }
     public void goTo(Vector3 target)
     {
@@ -85,14 +87,15 @@ public class FootBallPlayer : MonoBehaviour
         }
     }
     public Team getMyTeam() { return myTeam; }
+    public Rol getMyRol() { return myRol; }
     public bool isInDanger() { return dangered; }
     public void setDangered(bool v) { dangered = v; }
     public BoxCollider getGoalZone() { return goalZone; }
     public void setShootDirection(Vector3 dir) { shootDirection = dir; }
     public Vector3 getShootDirection() { return shootDirection; }
     public List<FootBallPlayer> getTeam() { return team; }
-    public Vector3 getLimitAttack() { return new Vector3(limitAttackX, transform.position.x, transform.position.z); }
-    public Vector3 getLimitDefense() { return new Vector3(limitDefenseX, transform.position.x, transform.position.z); }
+    public float getLimitAttack() { return limitAttackX; }
+    public float getLimitDefense() { return limitDefenseX; }
     public void setHasBall(bool b, Ball ball) { hasBall = b; if (b) myBall = ball; else myBall = null; }
     public bool getHasBall() { return hasBall; }
 }

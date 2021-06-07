@@ -24,7 +24,7 @@ public class GoToAttackZone : Action
     public override void OnStart()
     {
         navMeshAgent.isStopped = false;
-        target = player.getLimitAttack();
+        target = new Vector3(player.getLimitAttack(), transform.position.y, transform.position.z);
         SetDestination(target);
     }
 

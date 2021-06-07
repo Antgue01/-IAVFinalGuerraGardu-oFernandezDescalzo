@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667546, g: 0.48427135, b: 0.5645225, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2199,7 +2199,10 @@ PrefabInstance:
       propertyPath: _data._json
       value: '{"declarations":{"collection":{"$content":[{"name":"MyTeam","value":{"$content":"TeamB","$type":"Team"},"$version":"A"},{"name":"EnemyTeam","value":{"$content":"TeamA","$type":"Team"},"$version":"A"},{"name":"MyPlayers","value":{"$content":[],"$type":"System.Collections.Generic.List`1[[FootBallPlayer,
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"$version":"A"},{"name":"EnemyPlayers","value":{"$content":[],"$type":"System.Collections.Generic.List`1[[FootBallPlayer,
-        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"$version":"A"},{"name":"Possession","value":{"$content":"Nobody","$type":"Team"},"$version":"A"},{"name":"Ball","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"$version":"A"},{"name":"Possession","value":{"$content":"Nobody","$type":"Team"},"$version":"A"},{"name":"Ball","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"Defensas","value":{"$content":[],"$type":"System.Collections.Generic.List`1[[FootBallPlayer,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"$version":"A"},{"name":"Centros","value":{"$content":[],"$type":"System.Collections.Generic.List`1[[FootBallPlayer,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"$version":"A"},{"name":"Delanteros","value":{"$content":[],"$type":"System.Collections.Generic.List`1[[FootBallPlayer,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
       objectReference: {fileID: 0}
     - target: {fileID: 5216164862951157074, guid: 137de8c57a840d849a4c9acf55cd3d55,
         type: 3}
@@ -4003,7 +4006,7 @@ PrefabInstance:
     - target: {fileID: 3369482528482194035, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.06
+      value: 10.15
       objectReference: {fileID: 0}
     - target: {fileID: 3369482528482194035, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
@@ -4013,7 +4016,7 @@ PrefabInstance:
     - target: {fileID: 3369482528482194035, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.46
+      value: -5.15
       objectReference: {fileID: 0}
     - target: {fileID: 4241752662419931596, guid: 0cd3f0c97d2a1ba4186c352562f05efa,
         type: 3}
@@ -4303,6 +4306,7 @@ MonoBehaviour:
   goalZoneA: {fileID: 604712131}
   goalZoneB: {fileID: 1166206419}
   ball: {fileID: 644307463}
+  campo: {fileID: 18307914}
 --- !u!4 &1603018632
 Transform:
   m_ObjectHideFlags: 0

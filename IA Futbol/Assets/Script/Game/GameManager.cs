@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum Team : uint { TeamA = 0, TeamB = 1 ,Nobody=2};
-
 public enum Zone : uint { Goal, Attack, Center, Defense };
 public enum Rol : uint { Delantero = 0, Centro = 1, Defensa = 2 };
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance = null;
+
     void Awake()
     {
         if (_instance == null)
@@ -49,6 +49,21 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    const int MaxGoals = 3;
+    int[] goals = new int[2];
+    [SerializeField] Text WinnerText;
+    [SerializeField] Text[] teams = new Text[2];
+    [SerializeField] string[] names = new string[2];
+    [SerializeField] Transform teamA, teamB;
+    [SerializeField] Transform zonaA, zonaB, zonaMedio, goalZoneA, goalZoneB;
+    List<FootBallPlayer> TeamAPlayers = new List<FootBallPlayer>();
+    List<FootBallPlayer> TeamBPlayers = new List<FootBallPlayer>();
+    [SerializeField] Ball ball;
+    [SerializeField] Collider campo;
+    GoalKeeper goalKeeperTeamA;
+    GoalKeeper goalKeeperTeamB;
+
     public void notifyGoalKeeper(Team shooterTeam)
     {
         if (shooterTeam == Team.TeamA)
@@ -64,18 +79,6 @@ public class GameManager : MonoBehaviour
         return _instance;
     }
 
-    const int MaxGoals = 3;
-    int[] goals = new int[2];
-    [SerializeField] Text WinnerText;
-    [SerializeField] Text[] teams = new Text[2];
-    [SerializeField] string[] names = new string[2];
-    [SerializeField] Transform teamA, teamB;
-    [SerializeField] Transform zonaA, zonaB, zonaMedio, goalZoneA, goalZoneB;
-    List<FootBallPlayer> TeamAPlayers = new List<FootBallPlayer>();
-    List<FootBallPlayer> TeamBPlayers = new List<FootBallPlayer>();
-    [SerializeField] Ball ball;
-    GoalKeeper goalKeeperTeamA;
-    GoalKeeper goalKeeperTeamB;
     public void Goal(Team team)
     {
         uint teamN = (uint)team;
@@ -144,4 +147,5 @@ public class GameManager : MonoBehaviour
         }
         ball.reset();
     }
+    public Collider getCampo() { return campo; }
 }

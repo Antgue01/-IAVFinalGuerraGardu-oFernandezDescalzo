@@ -13,6 +13,11 @@ public class HiveMind : MonoBehaviour
         init();
     }
 
+    private void Update()
+    {
+
+    }
+
     public void init()
     {
         Team MyTeam = Variables.Object(this.gameObject).Get("MyTeam").ConvertTo<Team>();
@@ -41,15 +46,16 @@ public class HiveMind : MonoBehaviour
         if (defensas.Count != 0)
         {
             posDefensas = new Vector3[defensas.Count];
-            //float defX = (defensas[0].getGoalZone().transform.position.x + defensas[0].getLimitAttack()) / 2.0f;
-            float defX = defensas[0].getLimitAttack() - (Mathf.Abs(defensas[0].getGoalZone().transform.position.x - defensas[0].getLimitAttack()) / 2.0f);
+            float limitAttack = defensas[0].getLimitAttack();
+            float goalX = GameManager.getInstance().getGoalZone(MyTeam).position.x;
+            float defX = (limitAttack + goalX) / 2.0f;
             Collider campo = GameManager.getInstance().getCampo();
             //Separacion entre defensas
-            float diffY = (campo.bounds.extents.z * 2) / defensas.Count;
+            float diffY = (campo.bounds.extents.z * 2) / (defensas.Count+1);
             float campoMaxZ = campo.bounds.center.z + GameManager.getInstance().getCampo().bounds.extents.z;
-            for (int i = 0; i < defensas.Count; i++)
+            for (int i = 1; i <= defensas.Count; i++)
             {
-                posDefensas[i] = new Vector3(defX, defensas[0].transform.position.y, campoMaxZ - (i * diffY));
+                posDefensas[i-1] = new Vector3(defX, defensas[0].transform.position.y, campoMaxZ - (i * diffY));
             }
             posDefensas[0].x = defensas[0].getLimitAttack();
             posDefensas[defensas.Count - 1].x = defensas[0].getLimitAttack();

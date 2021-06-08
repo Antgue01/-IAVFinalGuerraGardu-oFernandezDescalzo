@@ -148,4 +148,16 @@ public class GameManager : MonoBehaviour
         ball.reset();
     }
     public Collider getCampo() { return campo; }
+
+    public Transform getGoalZone(Team team) 
+    {
+        if(team == Team.TeamA)
+        {
+            return goalZoneA;
+        }
+        else
+        {
+            return goalZoneB;
+        }
+    }
 }

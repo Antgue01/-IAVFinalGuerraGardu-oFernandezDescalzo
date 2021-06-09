@@ -64,7 +64,8 @@ public class FootBallPlayer : MonoBehaviour
     {
         if (hasBall)
         {
-            myBall.transform.position = transform.position + transform.forward;
+            myBall.transform.position = new Vector3(transform.position.x + transform.forward.x, myBall.transform.position.y, 
+                transform.position.z + transform.forward.z);
 
         }
         if (stunned)

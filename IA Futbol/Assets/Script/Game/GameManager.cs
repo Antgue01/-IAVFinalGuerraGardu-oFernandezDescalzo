@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Team : uint { TeamA = 0, TeamB = 1 ,Nobody=2};
+public enum Team : uint { TeamA = 0, TeamB = 1, Nobody = 2 };
 public enum Zone : uint { Goal, Attack, Center, Defense };
 public enum Rol : uint { Delantero = 0, Centro = 1, Defensa = 2 };
 public class GameManager : MonoBehaviour
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text[] teams = new Text[2];
     [SerializeField] string[] names = new string[2];
     [SerializeField] Transform teamA, teamB;
-    [SerializeField] Transform zonaA, zonaB, zonaMedio, goalZoneA, goalZoneB;
+    [SerializeField] Transform zonaA, zonaB, zonaMedio, goalZoneA, goalZoneB, ATKTeamA, ATKTeamB;
     List<FootBallPlayer> TeamAPlayers = new List<FootBallPlayer>();
     List<FootBallPlayer> TeamBPlayers = new List<FootBallPlayer>();
     [SerializeField] Ball ball;
@@ -124,14 +124,14 @@ public class GameManager : MonoBehaviour
             if (role == Rol.Centro)
                 return zonaB.position.x;
             else if (role == Rol.Defensa) return zonaA.position.x;
-            else return goalZoneB.position.x;
+            else return ATKTeamA.position.x;
         }
         else
         {
             if (role == Rol.Centro)
                 return zonaA.position.x;
             else if (role == Rol.Defensa) return zonaB.position.x;
-            else return goalZoneA.position.x;
+            else return ATKTeamB.position.x;
         }
 
     }
@@ -149,9 +149,9 @@ public class GameManager : MonoBehaviour
     }
     public Collider getCampo() { return campo; }
 
-    public Transform getGoalZone(Team team) 
+    public Transform getGoalZone(Team team)
     {
-        if(team == Team.TeamA)
+        if (team == Team.TeamA)
         {
             return goalZoneA;
         }

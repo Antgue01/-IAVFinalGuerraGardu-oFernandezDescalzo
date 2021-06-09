@@ -107,7 +107,7 @@ public class HiveMind : MonoBehaviour
             }
         }
         int numCentrosSinPelota = 0;
-        foreach (var centro in centros)
+        foreach (FootBallPlayer centro in centros)
         {
             if (!centro.getHasBall())
             {
@@ -127,6 +127,11 @@ public class HiveMind : MonoBehaviour
         {
             if (!centros[i].getHasBall())
                 centros[i].spread();
+        }
+        foreach (FootBallPlayer delantero in delanteros)
+        {
+            if (!delantero.getHasBall())
+                delantero.spread();
         }
 
     }

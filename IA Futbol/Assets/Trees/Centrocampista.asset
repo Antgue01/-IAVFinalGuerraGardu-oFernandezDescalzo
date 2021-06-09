@@ -27,8 +27,9 @@ MonoBehaviour:
         abort para que vea si est\u00e1 en peligro siempre"},"ID":5,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.ConditionalEvaluator","NodeData":{"Offset":"(0,110)","Comment":"Si
         estoy en peligro"},"ID":6,"Name":"Conditional Evaluator","Instant":true,"SharedBoolreevaluate":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"ConditionalconditionalTask":{"Type":"BallIsInDanger"},"Children":[{"Type":"Pass","NodeData":{"Offset":"(0,113.636414)","Comment":"si
         no puedo tirar paso"},"ID":7,"Name":"Pass","Instant":true,"LayerMaskPlayersLayer":256}]}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(510.866,56.16615)"},"ID":8,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"GoToAttackZone","NodeData":{"Offset":"(2.22223,170)"},"ID":9,"Name":"Go
-        To Attack Zone","Instant":true},{"Type":"Pass","NodeData":{"Offset":"(152.777588,158.333954)","Comment":"si
-        no puedo tirar paso"},"ID":10,"Name":"Pass","Instant":true,"LayerMaskPlayersLayer":256}]}]}]}]}}'
+        To Attack Zone","Instant":true},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(193.306641,192.823)"},"ID":10,"Name":"Inverter","Instant":true,"Children":[{"Type":"PassToOptimumStriker","NodeData":{"Offset":"(0,136.666718)"},"ID":11,"Name":"Pass
+        To Optimum Striker","Instant":true,"LayerMaskPlayersLayer":0}]},{"Type":"Pass","NodeData":{"Offset":"(387.1526,173.958954)","Comment":"si
+        no puedo tirar paso"},"ID":12,"Name":"Pass","Instant":true,"LayerMaskPlayersLayer":256}]}]}]}]}}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 

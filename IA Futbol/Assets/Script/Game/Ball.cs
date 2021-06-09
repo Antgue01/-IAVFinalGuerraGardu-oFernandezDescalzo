@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Ball : MonoBehaviour
 {
@@ -22,16 +23,21 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         FootBallPlayer player = collision.gameObject.GetComponent<FootBallPlayer>();
-        if (player)
+        if (player && !player.isStunned())
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
             if (owner != null)
             {
-                owner.setHasBall(false, this);
+                owner.setHasBall(null);
+                owner.stun();
+
             }
-            player.setHasBall(true, this);
+
+            player.setHasBall(this);
+            if (player.getWaitingForPass())
+                player.setWaitingForPass(false);
         }
     }
 }

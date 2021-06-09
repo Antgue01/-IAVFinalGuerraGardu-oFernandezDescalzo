@@ -8,21 +8,30 @@ public class FootBallPlayer : MonoBehaviour
     bool hasBall = false;
     Ball myBall;
     bool dangered = false;
+    bool stunned = false;
+    bool waitingForPass = false;
     List<FootBallPlayer> team;
     float limitAttackX, limitDefenseX;
     NavMeshAgent navmesh;
+    FootBallPlayer mateWithBall = null;
 
     [SerializeField] Team myTeam;
     [SerializeField] Rol myRol;
     [SerializeField] BoxCollider goalZone;
     [SerializeField] float ShootPower = 2;
     [SerializeField] float PassPower = .2f;
+    [SerializeField] float spreadDistance = 1.2f;
+    [SerializeField] float stunnedTime = 1;
+    [SerializeField] float MaxWaitingTime = 2.25f;
+    float timeWaiting = 0;
+    float timeSinceLast = 0;
     Vector3 initialPos;
     Vector3 shootDirection;
 
 
     private void Start()
     {
+        Debug.Log("player");
         initialPos = transform.position;
         team = GameManager.getInstance().getTeam(myTeam);
         limitAttackX = GameManager.getInstance().getAttackZone(myTeam, myRol);
@@ -36,6 +45,7 @@ public class FootBallPlayer : MonoBehaviour
         shootDirection = Vector3.zero;
         dangered = false;
         myBall = null;
+        stunned = false;
 
     }
     public void goTo(Transform target)
@@ -47,7 +57,8 @@ public class FootBallPlayer : MonoBehaviour
     }
     public void goTo(Vector3 target)
     {
-        navmesh.SetDestination(target);
+        if (!waitingForPass)
+            navmesh.SetDestination(target);
     }
     private void Update()
     {
@@ -55,6 +66,25 @@ public class FootBallPlayer : MonoBehaviour
         {
             myBall.transform.position = transform.position + transform.forward;
 
+        }
+        if (stunned)
+        {
+            timeSinceLast += Time.deltaTime;
+            if (timeSinceLast >= stunnedTime)
+            {
+                stunned = false;
+                timeSinceLast = 0;
+                Debug.Log("Patata");
+            }
+        }
+        if (waitingForPass)
+        {
+            timeWaiting += Time.deltaTime;
+            if (timeWaiting >= MaxWaitingTime)
+            {
+                timeWaiting = 0;
+                waitingForPass = false;
+            }
         }
     }
     public void Shoot()
@@ -65,8 +95,7 @@ public class FootBallPlayer : MonoBehaviour
             myBall.transform.position = transform.position + transform.forward;
             Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
             ballrb.AddForce(shootDirection.normalized * ShootPower * shootDirection.magnitude, ForceMode.Impulse);
-            hasBall = false;
-            myBall = null;
+            setHasBall(null);
             GameManager.getInstance().notifyGoalKeeper(myTeam);
         }
     }
@@ -74,16 +103,16 @@ public class FootBallPlayer : MonoBehaviour
     {
         if (mate != this && myTeam == mate.myTeam)
         {
+            mate.setWaitingForPass(true);
             Vector3 dir = mate.transform.position - transform.position;
-
+            mate.navmesh.isStopped = true;
             if (hasBall)
             {
                 Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
                 transform.LookAt(mate.transform.position);
                 myBall.transform.position = transform.position + transform.forward;
                 ballrb.AddForce(dir.normalized * dir.magnitude * PassPower, ForceMode.Impulse);
-                myBall = null;
-                hasBall = false;
+                setHasBall(null);
             }
         }
     }
@@ -97,6 +126,55 @@ public class FootBallPlayer : MonoBehaviour
     public List<FootBallPlayer> getTeam() { return team; }
     public float getLimitAttack() { return limitAttackX; }
     public float getLimitDefense() { return limitDefenseX; }
-    public void setHasBall(bool b, Ball ball) { hasBall = b; if (b) myBall = ball; else myBall = null; }
+    public bool isStunned() { return stunned; }
+    public void stun() { stunned = true; Debug.Log("stunned"); }
+    public bool getWaitingForPass() { return waitingForPass; }
+    public void setWaitingForPass(bool b) { waitingForPass = b; }
+    public void setHasBall(Ball ball)
+    {
+        hasBall = ball != null;
+        if (hasBall)
+        {
+            navmesh.isStopped = true;
+            foreach (FootBallPlayer player in team)
+            {
+
+                player.setMateWithBall(this);
+            }
+        }
+        else
+        {
+            foreach (FootBallPlayer player in team)
+            {
+
+                player.setMateWithBall(null);
+            }
+
+        }
+        myBall = ball;
+    }
     public bool getHasBall() { return hasBall; }
+    public void spread()
+    {
+        Vector3 defaultPos = new Vector3(limitAttackX, transform.position.y, transform.position.z);
+        if (mateWithBall != null)
+        {
+
+            RaycastHit info;
+            Vector3 dir = mateWithBall.transform.position - transform.position;
+            Debug.DrawRay(transform.position, dir, Color.magenta);
+
+            if (Physics.Raycast(transform.position, dir.normalized, out info, dir.magnitude, LayerMask.GetMask(LayerMask.LayerToName(this.gameObject.layer))) &&
+                info.collider.gameObject.GetComponent<FootBallPlayer>().myTeam != myTeam)
+            {
+                Vector3 orthogonal1 = transform.position + new Vector3(-dir.z, dir.y, dir.x).normalized * spreadDistance;
+                Vector3 orthogonal2 = transform.position + new Vector3(dir.z, dir.y, -dir.x).normalized * spreadDistance;
+                goTo(Vector3.Distance(orthogonal1, goalZone.transform.position) < Vector3.Distance(orthogonal2, goalZone.transform.position) ? orthogonal1 : orthogonal2);
+            }
+            else goTo(defaultPos);
+
+        }
+        else goTo(defaultPos);
+    }
+    public void setMateWithBall(FootBallPlayer other) { mateWithBall = other; }
 }

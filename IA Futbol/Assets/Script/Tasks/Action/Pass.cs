@@ -9,6 +9,7 @@ public class Pass : Action
 {
     private FootBallPlayer player;
     public LayerMask PlayersLayer;
+   
     List<FootBallPlayer> team;
     public override void OnAwake()
     {
@@ -30,10 +31,9 @@ public class Pass : Action
             {
                 Vector3 direction = canPassPlayer.transform.position - player.transform.position;
                 bool collides = Physics.Raycast(player.transform.position, direction.normalized, out info, direction.magnitude, PlayersLayer);
-                Debug.DrawRay(player.transform.position, direction, Color.red,3);
+                Debug.DrawRay(player.transform.position, direction, Color.red);
                 
                 //si no hay nadie en medio o si lo que hay es alguien de mi equipo
-                if(info.collider.GetComponent<FootBallPlayer>() == null) Debug.Log(info.collider.gameObject.name);
                 Team myTeam = info.collider.GetComponent<FootBallPlayer>().getMyTeam();
                 if (!collides || (collides && myTeam == player.getMyTeam()))
                 {

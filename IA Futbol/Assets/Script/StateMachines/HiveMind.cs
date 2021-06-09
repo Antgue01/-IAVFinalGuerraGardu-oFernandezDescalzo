@@ -8,10 +8,7 @@ public class HiveMind : MonoBehaviour
 {
     Vector3[] posDefensas;
 
-    private void Start()
-    {
-        init();
-    }
+
 
     private void Update()
     {
@@ -20,6 +17,7 @@ public class HiveMind : MonoBehaviour
 
     public void init()
     {
+        Debug.Log("hivemind");
         Team MyTeam = Variables.Object(this.gameObject).Get("MyTeam").ConvertTo<Team>();
         Team EnemyTeam = Variables.Object(this.gameObject).Get("EnemyTeam").ConvertTo<Team>();
         List<FootBallPlayer> myTeam = GameManager.getInstance().getTeam(MyTeam);
@@ -31,10 +29,10 @@ public class HiveMind : MonoBehaviour
         List<FootBallPlayer> centros = new List<FootBallPlayer>();
         List<FootBallPlayer> defensas = new List<FootBallPlayer>();
 
-        foreach(FootBallPlayer player in myTeam)
+        foreach (FootBallPlayer player in myTeam)
         {
-            if(player.getMyRol() == Rol.Delantero) delanteros.Add(player);
-            else if(player.getMyRol() == Rol.Centro) centros.Add(player);
+            if (player.getMyRol() == Rol.Delantero) delanteros.Add(player);
+            else if (player.getMyRol() == Rol.Centro) centros.Add(player);
             else defensas.Add(player);
         }
 
@@ -51,11 +49,11 @@ public class HiveMind : MonoBehaviour
             float defX = (limitAttack + goalX) / 2.0f;
             Collider campo = GameManager.getInstance().getCampo();
             //Separacion entre defensas
-            float diffY = (campo.bounds.extents.z * 2) / (defensas.Count+1);
+            float diffY = (campo.bounds.extents.z * 2) / (defensas.Count + 1);
             float campoMaxZ = campo.bounds.center.z + GameManager.getInstance().getCampo().bounds.extents.z;
             for (int i = 1; i <= defensas.Count; i++)
             {
-                posDefensas[i-1] = new Vector3(defX, defensas[0].transform.position.y, campoMaxZ - (i * diffY));
+                posDefensas[i - 1] = new Vector3(defX, defensas[0].transform.position.y, campoMaxZ - (i * diffY));
             }
             posDefensas[0].x = defensas[0].getLimitAttack();
             posDefensas[defensas.Count - 1].x = defensas[0].getLimitAttack();
@@ -91,7 +89,7 @@ public class HiveMind : MonoBehaviour
         }
         return hasPossession;
     }
-    public bool NoPossession(List<FootBallPlayer> teamA,List<FootBallPlayer> teamB)
+    public bool NoPossession(List<FootBallPlayer> teamA, List<FootBallPlayer> teamB)
     {
         return !hasPossession(teamA) && !hasPossession(teamB);
     }
@@ -108,5 +106,28 @@ public class HiveMind : MonoBehaviour
                 defensas[i].goTo(posDefensas[i]);
             }
         }
+        int numCentrosSinPelota = 0;
+        foreach (var centro in centros)
+        {
+            if (!centro.getHasBall())
+            {
+                numCentrosSinPelota++;
+            }
+        }
+        Collider campo = GameManager.getInstance().getCampo();
+        float diffY = (campo.bounds.extents.z * 2) / ((numCentrosSinPelota / 2) + 1);
+        float campoMaxZ = campo.bounds.center.z + GameManager.getInstance().getCampo().bounds.extents.z;
+
+        for (int i = 1; i <= numCentrosSinPelota / 2; i++)
+        {
+            if (!centros[i - 1].getHasBall())
+                centros[i - 1].goTo(new Vector3(centros[0].getLimitDefense(), centros[i - 1].transform.position.y, campoMaxZ - (i * diffY)));
+        }
+        for (int i = numCentrosSinPelota / 2; i < centros.Count; i++)
+        {
+            if (!centros[i].getHasBall())
+                centros[i].spread();
+        }
+
     }
 }

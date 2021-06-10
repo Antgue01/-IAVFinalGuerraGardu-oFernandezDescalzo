@@ -46,6 +46,7 @@ public class Pass : Action
         }
         FootBallPlayer furthest = null;
         float targetDistance = float.MaxValue;
+        if (canPass.Count == 0) return TaskStatus.Failure;
         foreach (FootBallPlayer footBallPlayer in canPass)
         {
             float distance = (footBallPlayer.getGoalZone().transform.position - footBallPlayer.transform.position).magnitude;

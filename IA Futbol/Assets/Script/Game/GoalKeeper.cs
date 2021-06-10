@@ -6,11 +6,13 @@ public class GoalKeeper : MonoBehaviour
 {
     [SerializeField] Collider goal;
     NavMeshAgent navmesh;
+    Vector3 initialPos;
 
     private void Start()
     {
         goal = GetComponent<Collider>();
         navmesh = GetComponent<NavMeshAgent>();
+        initialPos = transform.position;
     }
     public void Catch()
     {
@@ -21,5 +23,10 @@ public class GoalKeeper : MonoBehaviour
         else
             randomPoint = new Vector3(transform.position.x, transform.position.y, goal.bounds.center.z - goal.bounds.extents.z);
         navmesh.SetDestination(randomPoint);
+    }
+
+    public void reset()
+    {
+        transform.position = initialPos;
     }
 }

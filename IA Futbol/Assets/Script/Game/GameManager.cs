@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Collider campo;
     GoalKeeper goalKeeperTeamA;
     GoalKeeper goalKeeperTeamB;
+    FootBallPlayer ballOwner;
+    bool ballOnAir = true;
 
     public void notifyGoalKeeper(Team shooterTeam)
     {
@@ -82,6 +84,8 @@ public class GameManager : MonoBehaviour
 
     public void Goal(Team team)
     {
+        ballOnAir = false;
+
         uint teamN = (uint)team;
 
         goals[teamN]++;
@@ -145,6 +149,8 @@ public class GameManager : MonoBehaviour
         {
             player.reset();
         }
+        goalKeeperTeamA.reset();
+        goalKeeperTeamB.reset();
         ball.reset();
     }
     public Collider getCampo() { return campo; }
@@ -160,4 +166,19 @@ public class GameManager : MonoBehaviour
             return goalZoneB;
         }
     }
+
+    public void setBallOnAir(bool ballMoving)
+    {
+        ballOnAir = ballMoving;
+    }
+
+    public bool getBallOnAir()
+    {
+        return ballOnAir;
+    }
+
+    public Vector3 getBallPosition() { return ball.transform.position; }
+
+    public void setBallOwner(FootBallPlayer player) { ballOwner = player; }
+    public FootBallPlayer getBallOwner() { return ballOwner; }
 }

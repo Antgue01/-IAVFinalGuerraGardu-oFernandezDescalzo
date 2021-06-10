@@ -13,7 +13,6 @@ public class FootBallPlayer : MonoBehaviour
     List<FootBallPlayer> team;
     float limitAttackX, limitDefenseX;
     NavMeshAgent navmesh;
-    FootBallPlayer mateWithBall = null;
 
     [SerializeField] Team myTeam;
     [SerializeField] Rol myRol;
@@ -31,7 +30,6 @@ public class FootBallPlayer : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("player");
         initialPos = transform.position;
         team = GameManager.getInstance().getTeam(myTeam);
         limitAttackX = GameManager.getInstance().getAttackZone(myTeam, myRol);
@@ -50,15 +48,19 @@ public class FootBallPlayer : MonoBehaviour
     }
     public void goTo(Transform target)
     {
-        if (Vector3.Distance(transform.position, target.position) > 0.05)
+        if (Vector3.Distance(transform.position, target.position) > 0.05 && !waitingForPass)
         {
+            navmesh.isStopped = false;
             navmesh.SetDestination(target.position);
         }
     }
     public void goTo(Vector3 target)
     {
-        if (!waitingForPass)
+        if (Vector3.Distance(transform.position, target) > 0.05 && !waitingForPass)
+        {
+            navmesh.isStopped = false;
             navmesh.SetDestination(target);
+        }
     }
     private void Update()
     {
@@ -98,6 +100,7 @@ public class FootBallPlayer : MonoBehaviour
             ballrb.AddForce(shootDirection.normalized * ShootPower * shootDirection.magnitude, ForceMode.Impulse);
             setHasBall(null);
             GameManager.getInstance().notifyGoalKeeper(myTeam);
+            GameManager.getInstance().setBallOnAir(true);
         }
     }
     public void Pass(FootBallPlayer mate)
@@ -114,6 +117,7 @@ public class FootBallPlayer : MonoBehaviour
                 myBall.transform.position = transform.position + transform.forward;
                 ballrb.AddForce(dir.normalized * dir.magnitude * PassPower, ForceMode.Impulse);
                 setHasBall(null);
+                GameManager.getInstance().setBallOnAir(true);
             }
         }
     }
@@ -130,27 +134,22 @@ public class FootBallPlayer : MonoBehaviour
     public bool isStunned() { return stunned; }
     public void stun() { stunned = true; Debug.Log("stunned"); }
     public bool getWaitingForPass() { return waitingForPass; }
-    public void setWaitingForPass(bool b) { waitingForPass = b; }
+    public void setWaitingForPass(bool b) {
+        if (b) GetComponent<Rigidbody>().velocity = Vector3.zero;
+        waitingForPass = b; 
+    }
     public void setHasBall(Ball ball)
     {
         hasBall = ball != null;
         if (hasBall)
         {
-            navmesh.isStopped = true;
-            foreach (FootBallPlayer player in team)
-            {
-
-                player.setMateWithBall(this);
-            }
+            GameManager.getInstance().setBallOwner(this);
+            timeWaiting = 0;
+            waitingForPass = false;
         }
         else
         {
-            foreach (FootBallPlayer player in team)
-            {
-
-                player.setMateWithBall(null);
-            }
-
+            GameManager.getInstance().setBallOwner(null);
         }
         myBall = ball;
     }
@@ -158,11 +157,12 @@ public class FootBallPlayer : MonoBehaviour
     public void spread()
     {
         Vector3 defaultPos = new Vector3(limitAttackX, transform.position.y, transform.position.z);
-        if (mateWithBall != null)
+        FootBallPlayer owner = GameManager.getInstance().getBallOwner();
+        if (owner != null && owner.getMyTeam() == myTeam)
         {
 
             RaycastHit info;
-            Vector3 dir = mateWithBall.transform.position - transform.position;
+            Vector3 dir = owner.transform.position - transform.position;
             Debug.DrawRay(transform.position, dir, Color.magenta);
 
             if (Physics.Raycast(transform.position, dir.normalized, out info, dir.magnitude, LayerMask.GetMask(LayerMask.LayerToName(this.gameObject.layer))) &&
@@ -177,5 +177,10 @@ public class FootBallPlayer : MonoBehaviour
         }
         else goTo(defaultPos);
     }
-    public void setMateWithBall(FootBallPlayer other) { mateWithBall = other; }
+
+    public void coverPlayer(Vector3 enemyPos)
+    {
+        Vector3 dir = (GameManager.getInstance().getBallPosition() - enemyPos).normalized;
+        goTo(enemyPos + dir * (GetComponent<Collider>().bounds.extents.x * 2));
+    }
 }

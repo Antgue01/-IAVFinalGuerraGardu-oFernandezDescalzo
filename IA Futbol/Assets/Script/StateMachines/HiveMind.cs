@@ -7,8 +7,7 @@ using Ludiq;
 public class HiveMind : MonoBehaviour
 {
     Vector3[] posDefensas;
-
-
+    Vector3[] posDelanteros;
 
     private void Update()
     {
@@ -17,7 +16,6 @@ public class HiveMind : MonoBehaviour
 
     public void init()
     {
-        Debug.Log("hivemind");
         Team MyTeam = Variables.Object(this.gameObject).Get("MyTeam").ConvertTo<Team>();
         Team EnemyTeam = Variables.Object(this.gameObject).Get("EnemyTeam").ConvertTo<Team>();
         List<FootBallPlayer> myTeam = GameManager.getInstance().getTeam(MyTeam);
@@ -55,8 +53,26 @@ public class HiveMind : MonoBehaviour
             {
                 posDefensas[i - 1] = new Vector3(defX, defensas[0].transform.position.y, campoMaxZ - (i * diffY));
             }
-            posDefensas[0].x = defensas[0].getLimitAttack();
-            posDefensas[defensas.Count - 1].x = defensas[0].getLimitAttack();
+            if(defensas.Count >= 2)
+            {
+                posDefensas[0].x = defensas[0].getLimitAttack();
+                posDefensas[defensas.Count - 1].x = defensas[0].getLimitAttack();
+            }
+        }
+
+        //Posiciones delanteros
+        if (delanteros.Count != 0)
+        {
+            posDelanteros = new Vector3[delanteros.Count];
+            float limitDefense = delanteros[0].getLimitDefense();
+            Collider campo = GameManager.getInstance().getCampo();
+            //Separacion entre delanteros
+            float diffY = (campo.bounds.extents.z * 2) / (delanteros.Count + 1);
+            float campoMaxZ = campo.bounds.center.z + GameManager.getInstance().getCampo().bounds.extents.z;
+            for (int i = 1; i <= delanteros.Count; i++)
+            {
+                posDelanteros[i - 1] = new Vector3(limitDefense, delanteros[0].transform.position.y, campoMaxZ - (i * diffY));
+            }
         }
     }
 
@@ -134,5 +150,64 @@ public class HiveMind : MonoBehaviour
                 delantero.spread();
         }
 
+    }
+
+    public void defend(List<FootBallPlayer> delanteros, List<FootBallPlayer> centros, List<FootBallPlayer> defensas, List<FootBallPlayer> enemyPlayers)
+    {
+        //Delanteros
+        for (int i = 0; i < delanteros.Count; i++) delanteros[i].goTo(posDelanteros[i]);
+
+        //Centros
+        for(int i=0; i< centros.Count/2; i++)
+        {
+            centros[i].goTo(new Vector3(centros[0].getLimitDefense(), centros[i].transform.position.y, centros[i].transform.position.z));
+        }
+
+        List<FootBallPlayer> otherPlayers = new List<FootBallPlayer>();
+        for (int i = centros.Count / 2; i < centros.Count; i++) otherPlayers.Add(centros[i]);
+        foreach (FootBallPlayer defensa in defensas) otherPlayers.Add(defensa);
+
+        FootBallPlayer owner = GameManager.getInstance().getBallOwner();
+        FootBallPlayer closestPlayer = new FootBallPlayer();
+        if(owner != null)
+        {
+            float minDist;
+            Vector3 ballPos = GameManager.getInstance().getBallPosition();
+            
+            minDist = float.MaxValue;
+            FootBallPlayer closest = new FootBallPlayer();
+            foreach (FootBallPlayer player in otherPlayers)
+            {
+                float dist = Vector3.Distance(ballPos, player.transform.position);
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    closest = player;
+                }
+            }
+            otherPlayers.Remove(closest);
+            closest.goTo(ballPos);
+        }
+
+        //El resto van a por el jugador mas cercano sin balon y lo cubren
+        List<FootBallPlayer> enemies = new List<FootBallPlayer>(enemyPlayers);
+        if (owner != null) enemies.Remove(owner);
+           
+        for(int i=0; i < otherPlayers.Count; i++)
+        {
+            float min = float.MaxValue;
+            FootBallPlayer enemyToCover = new FootBallPlayer();
+            for(int j = 0; j < enemies.Count; j++)
+            {
+                float distance = Vector3.Distance(enemies[j].transform.position, otherPlayers[i].transform.position);
+                if(distance < min)
+                {
+                    min = distance;
+                    enemyToCover = enemies[j];
+                }
+            }
+            otherPlayers[i].coverPlayer(new Vector3(enemyToCover.transform.position.x, enemyToCover.transform.position.y, enemyToCover.transform.position.z));
+            enemies.Remove(enemyToCover);
+        }
     }
 }

@@ -31,14 +31,12 @@ public class Ball : MonoBehaviour
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
-
+                FootBallPlayer owner = GameManager.getInstance().getBallOwner();
                 if (owner != null)
                 {
                     owner.setHasBall(null);
                     owner.stun();
-
                 }
-
                 player.setHasBall(this);
                 if (player.getWaitingForPass())
                     player.setWaitingForPass(false);

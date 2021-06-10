@@ -43,7 +43,10 @@ public class FootBallPlayer : MonoBehaviour
         shootDirection = Vector3.zero;
         dangered = false;
         myBall = null;
+        waitingForPass = false;
+        timeWaiting = 0;
         stunned = false;
+        timeSinceLast = 0;
 
     }
     public void goTo(Transform target)
@@ -66,9 +69,8 @@ public class FootBallPlayer : MonoBehaviour
     {
         if (hasBall)
         {
-            myBall.transform.position = new Vector3(transform.position.x + transform.forward.x, myBall.transform.position.y, 
-                transform.position.z + transform.forward.z);
-
+            Vector3 diff = transform.forward.normalized * GetComponent<Collider>().bounds.extents.z * 2.0f;
+            myBall.transform.position = transform.position + diff;
         }
         if (stunned)
         {
@@ -77,7 +79,6 @@ public class FootBallPlayer : MonoBehaviour
             {
                 stunned = false;
                 timeSinceLast = 0;
-                Debug.Log("Patata");
             }
         }
         if (waitingForPass)
@@ -132,7 +133,7 @@ public class FootBallPlayer : MonoBehaviour
     public float getLimitAttack() { return limitAttackX; }
     public float getLimitDefense() { return limitDefenseX; }
     public bool isStunned() { return stunned; }
-    public void stun() { stunned = true; Debug.Log("stunned"); }
+    public void stun() { stunned = true; }
     public bool getWaitingForPass() { return waitingForPass; }
     public void setWaitingForPass(bool b) {
         if (b) GetComponent<Rigidbody>().velocity = Vector3.zero;

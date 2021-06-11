@@ -31,7 +31,7 @@ public class Pass : Action
             {
                 Vector3 direction = canPassPlayer.transform.position - player.transform.position;
                 bool collides = Physics.Raycast(player.transform.position, direction.normalized, out info, direction.magnitude, PlayersLayer);
-                Debug.DrawRay(player.transform.position, direction, Color.red);
+                Debug.DrawRay(player.transform.position, direction, Color.yellow);
 
                 //si no hay nadie en medio o si lo que hay es alguien de mi equipo
                 if (info.collider != null)

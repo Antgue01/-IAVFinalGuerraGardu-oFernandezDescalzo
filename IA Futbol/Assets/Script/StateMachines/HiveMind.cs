@@ -168,14 +168,13 @@ public class HiveMind : MonoBehaviour
         foreach (FootBallPlayer defensa in defensas) otherPlayers.Add(defensa);
 
         FootBallPlayer owner = GameManager.getInstance().getBallOwner();
-        FootBallPlayer closestPlayer = new FootBallPlayer();
         if(owner != null)
         {
             float minDist;
             Vector3 ballPos = GameManager.getInstance().getBallPosition();
             
             minDist = float.MaxValue;
-            FootBallPlayer closest = new FootBallPlayer();
+            FootBallPlayer closest = null;
             foreach (FootBallPlayer player in otherPlayers)
             {
                 float dist = Vector3.Distance(ballPos, player.transform.position);
@@ -196,7 +195,7 @@ public class HiveMind : MonoBehaviour
         for(int i=0; i < otherPlayers.Count; i++)
         {
             float min = float.MaxValue;
-            FootBallPlayer enemyToCover = new FootBallPlayer();
+            FootBallPlayer enemyToCover = null;
             for(int j = 0; j < enemies.Count; j++)
             {
                 float distance = Vector3.Distance(enemies[j].transform.position, otherPlayers[i].transform.position);

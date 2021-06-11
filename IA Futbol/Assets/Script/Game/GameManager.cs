@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
             initTeams();
+            teamANameText.text = names[0];
+            teamBNameText.text = names[1];
         }
         else
         {
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
     int[] goals = new int[2];
     [SerializeField] Text WinnerText;
     [SerializeField] Text[] teams = new Text[2];
+    [SerializeField] Text teamANameText, teamBNameText;
     [SerializeField] string[] names = new string[2];
     [SerializeField] Transform teamA, teamB;
     [SerializeField] Transform zonaA, zonaB, zonaMedio, goalZoneA, goalZoneB, ATKTeamA, ATKTeamB;
@@ -65,7 +68,7 @@ public class GameManager : MonoBehaviour
     GoalKeeper goalKeeperTeamA;
     GoalKeeper goalKeeperTeamB;
     FootBallPlayer ballOwner;
-    bool ballOnAir = true;
+
 
     public void notifyGoalKeeper(Team shooterTeam)
     {
@@ -84,15 +87,20 @@ public class GameManager : MonoBehaviour
 
     public void Goal(Team team)
     {
-        ballOnAir = false;
+        ball.setBallOnAir(false);
 
         uint teamN = (uint)team;
 
         goals[teamN]++;
         teams[teamN].text = goals[teamN].ToString();
         if (goals[teamN] >= MaxGoals)
+        {
             WinnerText.text = "Gana " + names[1 - teamN];
-        reset();
+            teamA.gameObject.SetActive(false);
+            teamB.gameObject.SetActive(false);
+        }
+        else
+            reset(team);
     }
 
     public List<FootBallPlayer> getTeam(Team team)
@@ -117,6 +125,7 @@ public class GameManager : MonoBehaviour
             else return zonaA.position.x;
         }
     }
+    public Ball getBall() { return ball; }
     public float getCenterZone()
     {
         return zonaMedio.position.x;
@@ -139,19 +148,29 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    void reset()
+    void reset(Team t)
     {
         foreach (FootBallPlayer player in TeamAPlayers)
         {
-            player.reset();
+            player.reset(t != Team.Nobody && Team.TeamA == t);
         }
         foreach (FootBallPlayer player in TeamBPlayers)
         {
-            player.reset();
+            player.reset(t != Team.Nobody && Team.TeamB == t);
         }
         goalKeeperTeamA.reset();
         goalKeeperTeamB.reset();
         ball.reset();
+        //nobody será un valor especial que resetee todo el estado del juego
+        if (t == Team.Nobody)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                goals[i] = 0;
+                teams[i].text = "0";
+            }
+            WinnerText.text = "";
+        }
     }
     public Collider getCampo() { return campo; }
 
@@ -167,15 +186,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void setBallOnAir(bool ballMoving)
-    {
-        ballOnAir = ballMoving;
-    }
 
-    public bool getBallOnAir()
-    {
-        return ballOnAir;
-    }
 
     public Vector3 getBallPosition() { return ball.transform.position; }
 

@@ -7,6 +7,7 @@ public class FootBallPlayer : MonoBehaviour
 {
     bool hasBall = false;
     Ball myBall;
+    Color myColor;
     bool dangered = false;
     bool stunned = false;
     bool waitingForPass = false;
@@ -22,6 +23,7 @@ public class FootBallPlayer : MonoBehaviour
     [SerializeField] float spreadDistance = 1.2f;
     [SerializeField] float stunnedTime = 1;
     [SerializeField] float MaxWaitingTime = 2.25f;
+    Vector3 backOffset = new Vector3(1.5f, 0, 0);
     float timeWaiting = 0;
     float timeSinceLast = 0;
     Vector3 initialPos;
@@ -35,8 +37,15 @@ public class FootBallPlayer : MonoBehaviour
         limitAttackX = GameManager.getInstance().getAttackZone(myTeam, myRol);
         limitDefenseX = GameManager.getInstance().getDefenseZone(myTeam, myRol);
         navmesh = GetComponent<NavMeshAgent>();
+        if (myTeam == Team.TeamA)
+        {
+            myColor = Color.red;
+            backOffset *= -1;
+        }
+        else if (myTeam == Team.TeamB)
+            myColor = Color.blue;
     }
-    public void reset()
+    public void reset(bool back)
     {
         transform.position = initialPos;
         hasBall = false;
@@ -47,6 +56,8 @@ public class FootBallPlayer : MonoBehaviour
         timeWaiting = 0;
         stunned = false;
         timeSinceLast = 0;
+        if (back)
+            transform.position += backOffset;
 
     }
     public void goTo(Transform target)
@@ -62,6 +73,7 @@ public class FootBallPlayer : MonoBehaviour
         if (Vector3.Distance(transform.position, target) > 0.05 && !waitingForPass)
         {
             navmesh.isStopped = false;
+            Debug.DrawLine(transform.position, target, myColor);
             navmesh.SetDestination(target);
         }
     }
@@ -99,9 +111,9 @@ public class FootBallPlayer : MonoBehaviour
             myBall.transform.position = transform.position + transform.forward;
             Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
             ballrb.AddForce(shootDirection.normalized * ShootPower * shootDirection.magnitude, ForceMode.Impulse);
+            myBall.setBallOnAir(true);
             setHasBall(null);
             GameManager.getInstance().notifyGoalKeeper(myTeam);
-            GameManager.getInstance().setBallOnAir(true);
         }
     }
     public void Pass(FootBallPlayer mate)
@@ -116,9 +128,9 @@ public class FootBallPlayer : MonoBehaviour
                 Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
                 transform.LookAt(mate.transform.position);
                 myBall.transform.position = transform.position + transform.forward;
+                myBall.setBallOnAir(true);
                 ballrb.AddForce(dir.normalized * dir.magnitude * PassPower, ForceMode.Impulse);
                 setHasBall(null);
-                GameManager.getInstance().setBallOnAir(true);
             }
         }
     }
@@ -135,9 +147,10 @@ public class FootBallPlayer : MonoBehaviour
     public bool isStunned() { return stunned; }
     public void stun() { stunned = true; }
     public bool getWaitingForPass() { return waitingForPass; }
-    public void setWaitingForPass(bool b) {
+    public void setWaitingForPass(bool b)
+    {
         if (b) GetComponent<Rigidbody>().velocity = Vector3.zero;
-        waitingForPass = b; 
+        waitingForPass = b;
     }
     public void setHasBall(Ball ball)
     {
@@ -163,15 +176,20 @@ public class FootBallPlayer : MonoBehaviour
         {
 
             RaycastHit info;
+            int layer = LayerMask.GetMask(LayerMask.LayerToName(this.gameObject.layer));
             Vector3 dir = owner.transform.position - transform.position;
-            Debug.DrawRay(transform.position, dir, Color.magenta);
-
-            if (Physics.Raycast(transform.position, dir.normalized, out info, dir.magnitude, LayerMask.GetMask(LayerMask.LayerToName(this.gameObject.layer))) &&
+            if (Physics.Raycast(transform.position, dir.normalized, out info, dir.magnitude, layer) &&
                 info.collider.gameObject.GetComponent<FootBallPlayer>().myTeam != myTeam)
             {
                 Vector3 orthogonal1 = transform.position + new Vector3(-dir.z, dir.y, dir.x).normalized * spreadDistance;
                 Vector3 orthogonal2 = transform.position + new Vector3(dir.z, dir.y, -dir.x).normalized * spreadDistance;
-                goTo(Vector3.Distance(orthogonal1, goalZone.transform.position) < Vector3.Distance(orthogonal2, goalZone.transform.position) ? orthogonal1 : orthogonal2);
+                Vector3 closest = Vector3.Distance(orthogonal1, goalZone.transform.position) < Vector3.Distance(orthogonal2,
+                    goalZone.transform.position) ? orthogonal1 : orthogonal2;
+                Vector3 DirToClosest = closest - transform.position;
+                //Si ya hay alguien en esa posición o alguien se me interpondría en el camino me desmarco hacia el otro lado
+                if (Physics.Raycast(transform.position, DirToClosest.normalized, DirToClosest.magnitude, layer))
+                    closest = closest == orthogonal1 ? orthogonal2 : orthogonal1;
+                goTo(closest);
             }
             else goTo(defaultPos);
 

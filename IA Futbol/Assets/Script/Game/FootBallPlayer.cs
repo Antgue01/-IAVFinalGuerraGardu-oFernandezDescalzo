@@ -56,6 +56,7 @@ public class FootBallPlayer : MonoBehaviour
         timeWaiting = 0;
         stunned = false;
         timeSinceLast = 0;
+        //al resetear al agente si han marcado gol a su equipo empieza un poco más atrás
         if (back)
             transform.position += backOffset;
 
@@ -79,11 +80,13 @@ public class FootBallPlayer : MonoBehaviour
     }
     private void Update()
     {
+        //Se coloca la pelota delante del jugador. No se hace mediante jerarquía padre-hijo porque da problemas con la escala
         if (hasBall)
         {
             Vector3 diff = transform.forward.normalized * GetComponent<Collider>().bounds.extents.z * 2.0f;
             myBall.transform.position = transform.position + diff;
         }
+        //Timer para dejar de estar aturdido
         if (stunned)
         {
             timeSinceLast += Time.deltaTime;
@@ -93,6 +96,7 @@ public class FootBallPlayer : MonoBehaviour
                 timeSinceLast = 0;
             }
         }
+        //Timer para dejar de esperar para el pase si pasa más de un tiempo determinado
         if (waitingForPass)
         {
             timeWaiting += Time.deltaTime;
@@ -105,29 +109,36 @@ public class FootBallPlayer : MonoBehaviour
     }
     public void Shoot()
     {
+        //Si el agente tiene la pelota y puede tirar aplicamos un empuje en la dirección de tiro de fuerza proporcional a la distancia y a una constante
         if (hasBall && shootDirection != Vector3.zero)
         {
             transform.LookAt(shootDirection + transform.position);
             myBall.transform.position = transform.position + transform.forward;
             Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
             ballrb.AddForce(shootDirection.normalized * ShootPower * shootDirection.magnitude, ForceMode.Impulse);
+            //Se avisa de que la pelota está en el aire para evitar pasar a estado sin balón
             myBall.setBallOnAir(true);
             setHasBall(null);
+            //Avisamos a un portero para que se tire a un lugar aleatorio
             GameManager.getInstance().notifyGoalKeeper(myTeam);
         }
     }
     public void Pass(FootBallPlayer mate)
     {
+        //Si el compañero es del equipo del agente
         if (mate != this && myTeam == mate.myTeam)
         {
+            //Se avisa al agente para que espere
             mate.setWaitingForPass(true);
             Vector3 dir = mate.transform.position - transform.position;
             mate.navmesh.isStopped = true;
+            //Si realmente se tiene la bola se mira hacia el compañero y se aplica un impulso proporcional a la distancia y a una constante
             if (hasBall)
             {
                 Rigidbody ballrb = myBall.GetComponent<Rigidbody>();
                 transform.LookAt(mate.transform.position);
                 myBall.transform.position = transform.position + transform.forward;
+                //Se avisa de que la pelota está en el aire para evitar pasar a estado sin balón
                 myBall.setBallOnAir(true);
                 ballrb.AddForce(dir.normalized * dir.magnitude * PassPower, ForceMode.Impulse);
                 setHasBall(null);
@@ -157,6 +168,7 @@ public class FootBallPlayer : MonoBehaviour
         hasBall = ball != null;
         if (hasBall)
         {
+            //si el agente consigue la pelota deja de esperar
             GameManager.getInstance().setBallOwner(this);
             timeWaiting = 0;
             waitingForPass = false;
@@ -170,8 +182,11 @@ public class FootBallPlayer : MonoBehaviour
     public bool getHasBall() { return hasBall; }
     public void spread()
     {
+        //si el agente no puede desmarcarse va a su límite de ataque por defecto
         Vector3 defaultPos = new Vector3(limitAttackX, transform.position.y, transform.position.z);
         FootBallPlayer owner = GameManager.getInstance().getBallOwner();
+        //Se lanza un rayo en dirección al compañero con la pelota si es del equipo del agente y si colisiona con un contrario se dirige a un punto
+        //en la línea perpendicular a este rayo.
         if (owner != null && owner.getMyTeam() == myTeam)
         {
 
@@ -181,12 +196,13 @@ public class FootBallPlayer : MonoBehaviour
             if (Physics.Raycast(transform.position, dir.normalized, out info, dir.magnitude, layer) &&
                 info.collider.gameObject.GetComponent<FootBallPlayer>().myTeam != myTeam)
             {
+                //Hay dos posibles vectores perpendiculares así que se elige aquel cuyo punto resultante deje al agente más cerca de la portería rival
                 Vector3 orthogonal1 = transform.position + new Vector3(-dir.z, dir.y, dir.x).normalized * spreadDistance;
                 Vector3 orthogonal2 = transform.position + new Vector3(dir.z, dir.y, -dir.x).normalized * spreadDistance;
                 Vector3 closest = Vector3.Distance(orthogonal1, goalZone.transform.position) < Vector3.Distance(orthogonal2,
                     goalZone.transform.position) ? orthogonal1 : orthogonal2;
                 Vector3 DirToClosest = closest - transform.position;
-                //Si ya hay alguien en esa posición o alguien se me interpondría en el camino me desmarco hacia el otro lado
+                //Si ya hay alguien en esa posición o alguien se interpondría en el camino del agente se desmarca hacia el otro lado
                 if (Physics.Raycast(transform.position, DirToClosest.normalized, DirToClosest.magnitude, layer))
                     closest = closest == orthogonal1 ? orthogonal2 : orthogonal1;
                 goTo(closest);
@@ -199,6 +215,7 @@ public class FootBallPlayer : MonoBehaviour
 
     public void coverPlayer(Vector3 enemyPos)
     {
+        //El agente se dirige al punto entre la pelota y el enemigo en el que está lo más cerca del enemigo posible
         Vector3 dir = (GameManager.getInstance().getBallPosition() - enemyPos).normalized;
         goTo(enemyPos + dir * (GetComponent<Collider>().bounds.extents.x * 2));
     }

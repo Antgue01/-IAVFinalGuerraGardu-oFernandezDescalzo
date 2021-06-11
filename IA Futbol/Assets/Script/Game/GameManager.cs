@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     }
     private void initTeams()
     {
+        //se añaden los jugadores al vector desde el padre común del equipo
         foreach (Transform player in teamA)
         {
             FootBallPlayer football = player.gameObject.GetComponent<FootBallPlayer>();
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
 
     public void notifyGoalKeeper(Team shooterTeam)
     {
+        //Se avisa al portero del equipo contrario al recibido que tiene que lanzarse
         if (shooterTeam == Team.TeamA)
             goalKeeperTeamB.Catch();
         else goalKeeperTeamA.Catch();
@@ -88,12 +90,14 @@ public class GameManager : MonoBehaviour
 
     public void Goal(Team team)
     {
+        //Al marcar la bola no está en el aire
         ball.setBallOnAir(false);
 
         uint teamN = (uint)team;
-
+        //Se castea el equipo al que han marcado a entero y se le suma gol
         goals[teamN]++;
         teams[teamN].text = goals[teamN].ToString();
+        //Si a uno de los equipos le han marcado el máximo de goles ha ganado el contrario. Se desactivan los jugadores y las IA multicapa
         if (goals[teamN] >= MaxGoals)
         {
             WinnerText.text = "Gana " + names[1 - teamN];
@@ -106,6 +110,7 @@ public class GameManager : MonoBehaviour
             }
             
         }
+        //en caso de seguir el juego se resetean las posiciones y estado de los agentes y la bola
         else
             resetGame(team);
     }
@@ -159,11 +164,12 @@ public class GameManager : MonoBehaviour
     {
         foreach (FootBallPlayer player in TeamAPlayers)
         {
-            player.reset(t != Team.Nobody && Team.TeamA == t);
+            //se le manda al jugador como bool para aparecer retrasado que el equipo que ha marcado no ha sido el suyo
+            player.reset(t != Team.Nobody && Team.TeamA != t);
         }
         foreach (FootBallPlayer player in TeamBPlayers)
         {
-            player.reset(t != Team.Nobody && Team.TeamB == t);
+            player.reset(t != Team.Nobody && Team.TeamB != t);
         }
         
         goalKeeperTeamA.reset();
@@ -180,6 +186,9 @@ public class GameManager : MonoBehaviour
             WinnerText.text = "";
         }
     }
+    /// <summary>
+    /// Se reactiva todo lo que se desactivó al ganar y se resetea el juego
+    /// </summary>
     public void resetGame()
     {
         teamA.gameObject.SetActive(true);

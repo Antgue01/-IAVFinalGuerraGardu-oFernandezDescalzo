@@ -17,6 +17,7 @@ public class HiveMind : MonoBehaviour
 
     public void init()
     {
+        //Recogemos las variables necesarias
         Team MyTeam = Variables.Object(this.gameObject).Get("MyTeam").ConvertTo<Team>();
         Team EnemyTeam = Variables.Object(this.gameObject).Get("EnemyTeam").ConvertTo<Team>();
         List<FootBallPlayer> myTeam = GameManager.getInstance().getTeam(MyTeam);
@@ -39,21 +40,25 @@ public class HiveMind : MonoBehaviour
         Variables.Object(this.gameObject).Set("Centros", centros);
         Variables.Object(this.gameObject).Set("Defensas", defensas);
 
-        //Posiciones defensas
+        //Calculamos las posiciones que ocuparán los defensas durante el ataque, ya que serán siempre las mismas, por lo que 
+        //no será necesario recalcularlas siempre
         if (defensas.Count != 0)
         {
             posDefensas = new Vector3[defensas.Count];
             float limitAttack = defensas[0].getLimitAttack();
             float goalX = GameManager.getInstance().getGoalZone(MyTeam).position.x;
+            //La posición en x de los defensas es el punto medio entre la portería y su zona de ataque
             float defX = (limitAttack + goalX) / 2.0f;
             Collider campo = GameManager.getInstance().getCampo();
-            //Separacion entre defensas
+            //Repartimos a los defensas a lo largo del eje Z del campo para cubrir el máximo área posible
             float diffY = (campo.bounds.extents.z * 2) / (defensas.Count + 1);
             float campoMaxZ = campo.bounds.center.z + GameManager.getInstance().getCampo().bounds.extents.z;
             for (int i = 1; i <= defensas.Count; i++)
             {
                 posDefensas[i - 1] = new Vector3(defX, defensas[0].transform.position.y, campoMaxZ - (i * diffY));
             }
+            //Si hay más de dos defensas adelantamos al primero y al último para cubrir un poco más de zona y cubrir la parte delantera de la 
+            //defensa
             if (defensas.Count >= 2)
             {
                 posDefensas[0].x = defensas[0].getLimitAttack();
@@ -61,7 +66,8 @@ public class HiveMind : MonoBehaviour
             }
         }
 
-        //Posiciones delanteros
+        //Hacemos lo mismo con los delanteros pero estas posiciones se usarán durante la etapa de defensa para cubrir la zona delantera con 
+        //el fin de estar preparados para el contraataque
         if (delanteros.Count != 0)
         {
             posDelanteros = new Vector3[delanteros.Count];
@@ -135,6 +141,7 @@ public class HiveMind : MonoBehaviour
                 numCentrosSinPelota++;
             }
         }
+        //la mitad de los centros adoptarán su posición defensiva (el centro del campo) para responder rápidamente en caso de que la posesión cambie
         Collider campo = GameManager.getInstance().getCampo();
         float diffY = (campo.bounds.extents.z * 2) / ((numCentrosSinPelota / 2) + 1);
         float campoMaxZ = campo.bounds.center.z + GameManager.getInstance().getCampo().bounds.extents.z;
@@ -144,11 +151,13 @@ public class HiveMind : MonoBehaviour
             if (!centros[i - 1].getHasBall())
                 centros[i - 1].goTo(new Vector3(centros[0].getLimitDefense(), centros[i - 1].transform.position.y, campoMaxZ - (i * diffY)));
         }
+        //El resto de centros se desmarcará con el fin de ayudar al delantero o al centro que tenga la pelota a subirla
         for (int i = numCentrosSinPelota / 2; i < centros.Count; i++)
         {
             if (!centros[i].getHasBall())
                 centros[i].spread();
         }
+        //Los delanteros se desmarcarán para poder tener un tiro claro
         foreach (FootBallPlayer delantero in delanteros)
         {
             if (!delantero.getHasBall())
@@ -161,19 +170,22 @@ public class HiveMind : MonoBehaviour
     {
         if (metric.text != "Defensa")
             metric.text = "Defensa";
-        //Delanteros
+        //Los delanteros esperan al contraataque en su zona
         for (int i = 0; i < delanteros.Count; i++) delanteros[i].goTo(posDelanteros[i]);
 
-        //Centros
+        //La mitad de los centros esperan tambíen al contraataque
         for (int i = 0; i < centros.Count / 2; i++)
         {
             centros[i].goTo(new Vector3(centros[0].getLimitDefense(), centros[i].transform.position.y, centros[i].transform.position.z));
         }
 
+        //El resto de jugadores irán a cubrir a los enemigos más cercanos a ellos, excepto el que esté más cerca del enemigo con el
+        //balón, que se dirigirá a él para robarlo
         List<FootBallPlayer> otherPlayers = new List<FootBallPlayer>();
         for (int i = centros.Count / 2; i < centros.Count; i++) otherPlayers.Add(centros[i]);
         foreach (FootBallPlayer defensa in defensas) otherPlayers.Add(defensa);
 
+        //Se busca al más cercano al enemigo con el balón y se le saca de la lista de jugadores que van a cubrir
         FootBallPlayer owner = GameManager.getInstance().getBallOwner();
         if (owner != null)
         {
@@ -192,6 +204,7 @@ public class HiveMind : MonoBehaviour
                 }
             }
             otherPlayers.Remove(closest);
+            //Se le ordena ir a por el balón
             closest.goTo(ballPos);
         }
 

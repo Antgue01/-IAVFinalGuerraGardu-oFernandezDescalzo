@@ -20,7 +20,8 @@ public class CanShoot : Conditional
     {
         if (goal != null && (goal.transform.position - transform.position).magnitude < minimumDistance)
         {
-
+            //se lanza un rayo a los 5 puntos intermedios entre un extremo de la portería y otro y en caso de no colisionar con un jugador enemigo
+            //es que se puede tirar a cualquiera de esos puntos
             Vector3 corner1 = goal.bounds.center - goal.bounds.extents;
             Vector3 corner2 = goal.bounds.center + goal.bounds.extents;
             bool intersects = false;
@@ -36,12 +37,14 @@ public class CanShoot : Conditional
 
                 i++;
             }
+            //Si se puede tirar se elige una dirección al azar de las 5, se prepara la dirección para que tire el agente y se devuelve Success
             if (!intersects)
             {
                 Vector3 shootDirection = (Vector3.Lerp(corner1, corner2, Random.Range(0f, 1.000001f)) - player.transform.position);
                 player.setShootDirection(shootDirection);
                 return TaskStatus.Success;
             }
+            //En caso contrario se pone la dirección 0 que indica que no se puede tirar y se devuelve Failure
             else
             {
                 player.setShootDirection(Vector3.zero);

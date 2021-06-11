@@ -24,6 +24,8 @@ public class PassToOptimumStriker : Action
     public override TaskStatus OnUpdate()
     {
         List<FootBallPlayer> canPass = new List<FootBallPlayer>();
+        //Se lanza un raycast a todos los delanteros del equipo del agente para ver si el primero con el que colisiona es aliado o enemigo
+
         RaycastHit info;
         foreach (FootBallPlayer canPassPlayer in team)
         {
@@ -33,7 +35,8 @@ public class PassToOptimumStriker : Action
                 bool collides = Physics.Raycast(player.transform.position, direction.normalized, out info, direction.magnitude, PlayersLayer);
                 Debug.DrawRay(player.transform.position, direction, Color.red);
 
-                //si no hay nadie en medio o si lo que hay es alguien de mi equipo
+                //si no hay nadie en medio o si lo que hay es un delantero del equipo del agente lo añadimos a la lista de posibles pases
+
                 if (info.collider != null)
                 {
                     FootBallPlayer potentialPlayer = info.collider.GetComponent<FootBallPlayer>();
@@ -45,10 +48,12 @@ public class PassToOptimumStriker : Action
                 }
             }
         }
+        //si no hay posibles pases porque todos están cubiertos se devuelve failure
         if (canPass.Count == 0)
             return TaskStatus.Failure;
         FootBallPlayer furthest = null;
         float targetDistance = float.MaxValue;
+        //en caso contrario se pasa al más cercano a la portería contraria y por tanto el más adelantado
         foreach (FootBallPlayer footBallPlayer in canPass)
         {
             float distance = (footBallPlayer.getGoalZone().transform.position - footBallPlayer.transform.position).magnitude;

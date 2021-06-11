@@ -4,7 +4,7 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 
 [TaskCategory("IAFutbol")]
-[TaskDescription("Se la pasa al compañero óptimo")]
+[TaskDescription("Se la pasa al compañero óptimo (el más cercano a la portería)")]
 public class Pass : Action
 {
     private FootBallPlayer player;
@@ -25,6 +25,7 @@ public class Pass : Action
     {
         List<FootBallPlayer> canPass = new List<FootBallPlayer>();
         RaycastHit info;
+        //Se lanza un raycast a todo el equipo del agente para ver si el primero con el que colisiona es aliado o enemigo
         foreach (FootBallPlayer canPassPlayer in team)
         {
             if (canPassPlayer != player && !canPassPlayer.isInDanger())
@@ -33,7 +34,7 @@ public class Pass : Action
                 bool collides = Physics.Raycast(player.transform.position, direction.normalized, out info, direction.magnitude, PlayersLayer);
                 Debug.DrawRay(player.transform.position, direction, Color.yellow);
 
-                //si no hay nadie en medio o si lo que hay es alguien de mi equipo
+                //si no hay nadie en medio o si lo que hay es alguien del equipo del agente lo añadimos a la lista de posibles pases
                 if (info.collider != null)
                 {
                     Team myTeam = info.collider.GetComponent<FootBallPlayer>().getMyTeam();
@@ -46,7 +47,10 @@ public class Pass : Action
         }
         FootBallPlayer furthest = null;
         float targetDistance = float.MaxValue;
+        //si no hay posibles pases porque todos están cubiertos se devuelve failure
         if (canPass.Count == 0) return TaskStatus.Failure;
+
+        //en caso contrario se pasa al más cercano a la portería contraria y por tanto el más adelantado
         foreach (FootBallPlayer footBallPlayer in canPass)
         {
             float distance = (footBallPlayer.getGoalZone().transform.position - footBallPlayer.transform.position).magnitude;

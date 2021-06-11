@@ -43,18 +43,22 @@ public class Ball : MonoBehaviour
         transform.position = initialPosition;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        ballOnAir = false;
+        timeOnAir = 0;
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (LayerMask.GetMask(LayerMask.LayerToName(collision.gameObject.layer)) != campoLayer)
         {
-
+            //el balón ya no está en el aire
             ballOnAir = false;
             FootBallPlayer player = collision.gameObject.GetComponent<FootBallPlayer>();
+            //si el jugador receptor no está aturdido cogerá la pelota
             if (player && !player.isStunned())
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
+                //Si ya tenía la pelota otro jugador se la quitamos y lo aturdimos
                 FootBallPlayer owner = GameManager.getInstance().getBallOwner();
                 if (owner != null)
                 {
@@ -62,6 +66,7 @@ public class Ball : MonoBehaviour
                     owner.stun();
                 }
                 player.setHasBall(this);
+                //si estábamos esperando un pase dejamos de esperar
                 if (player.getWaitingForPass())
                     player.setWaitingForPass(false);
             }

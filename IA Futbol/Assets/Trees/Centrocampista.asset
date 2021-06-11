@@ -29,7 +29,7 @@ MonoBehaviour:
         no puedo tirar paso"},"ID":7,"Name":"Pass","Instant":true,"LayerMaskPlayersLayer":256}]}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(510.866,56.16615)"},"ID":8,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"GoToAttackZone","NodeData":{"Offset":"(2.22223,170)"},"ID":9,"Name":"Go
         To Attack Zone","Instant":true},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(193.306641,192.823)"},"ID":10,"Name":"Inverter","Instant":true,"Children":[{"Type":"PassToOptimumStriker","NodeData":{"Offset":"(0,136.666718)"},"ID":11,"Name":"Pass
         To Optimum Striker","Instant":true,"LayerMaskPlayersLayer":0}]},{"Type":"Pass","NodeData":{"Offset":"(387.1526,173.958954)","Comment":"si
-        no puedo tirar paso"},"ID":12,"Name":"Pass","Instant":true,"LayerMaskPlayersLayer":256}]}]}]}]}}'
+        no puedo pasar a un delantero \u00f3ptimo paso a cualquier otro compa\u00f1ero"},"ID":12,"Name":"Pass","Instant":true,"LayerMaskPlayersLayer":256}]}]}]}]}}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 

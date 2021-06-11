@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     List<FootBallPlayer> TeamBPlayers = new List<FootBallPlayer>();
     [SerializeField] Ball ball;
     [SerializeField] Collider campo;
+    [SerializeField] HiveMind[] hiveMinds = new HiveMind[2];
     GoalKeeper goalKeeperTeamA;
     GoalKeeper goalKeeperTeamB;
     FootBallPlayer ballOwner;
@@ -98,9 +99,15 @@ public class GameManager : MonoBehaviour
             WinnerText.text = "Gana " + names[1 - teamN];
             teamA.gameObject.SetActive(false);
             teamB.gameObject.SetActive(false);
+            foreach (HiveMind mind in hiveMinds)
+            {
+                mind.gameObject.SetActive(false);
+                mind.gameObject.SetActive(false);
+            }
+            
         }
         else
-            reset(team);
+            resetGame(team);
     }
 
     public List<FootBallPlayer> getTeam(Team team)
@@ -148,7 +155,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    void reset(Team t)
+    void resetGame(Team t)
     {
         foreach (FootBallPlayer player in TeamAPlayers)
         {
@@ -158,10 +165,11 @@ public class GameManager : MonoBehaviour
         {
             player.reset(t != Team.Nobody && Team.TeamB == t);
         }
+        
         goalKeeperTeamA.reset();
         goalKeeperTeamB.reset();
         ball.reset();
-        //nobody será un valor especial que resetee todo el estado del juego
+      //usaremos nobody como valor especial para indicar que se resetee el estado del juego en general
         if (t == Team.Nobody)
         {
             for (int i = 0; i < 2; i++)
@@ -172,6 +180,18 @@ public class GameManager : MonoBehaviour
             WinnerText.text = "";
         }
     }
+    public void resetGame()
+    {
+        teamA.gameObject.SetActive(true);
+        teamB.gameObject.SetActive(true);
+        foreach (HiveMind hiveMind in hiveMinds)
+        {
+            if (!hiveMind.gameObject.activeSelf)
+                hiveMind.gameObject.SetActive(true);
+        }
+        resetGame(Team.Nobody);
+     }
+
     public Collider getCampo() { return campo; }
 
     public Transform getGoalZone(Team team)

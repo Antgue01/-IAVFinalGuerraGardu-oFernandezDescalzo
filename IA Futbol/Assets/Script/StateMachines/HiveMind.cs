@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Bolt;
 using Ludiq;
-
+using UnityEngine.UI;
 public class HiveMind : MonoBehaviour
 {
     Vector3[] posDefensas;
+    [SerializeField] Text metric;
     Vector3[] posDelanteros;
 
     private void Update()
@@ -53,7 +54,7 @@ public class HiveMind : MonoBehaviour
             {
                 posDefensas[i - 1] = new Vector3(defX, defensas[0].transform.position.y, campoMaxZ - (i * diffY));
             }
-            if(defensas.Count >= 2)
+            if (defensas.Count >= 2)
             {
                 posDefensas[0].x = defensas[0].getLimitAttack();
                 posDefensas[defensas.Count - 1].x = defensas[0].getLimitAttack();
@@ -107,12 +108,16 @@ public class HiveMind : MonoBehaviour
     }
     public bool NoPossession(List<FootBallPlayer> teamA, List<FootBallPlayer> teamB)
     {
-        return !hasPossession(teamA) && !hasPossession(teamB);
+        bool nopossession = !hasPossession(teamA) && !hasPossession(teamB);
+        if (nopossession && metric.text != "SinBalon")
+            metric.text = "SinBalon";
+        return nopossession;
     }
 
     public void attack(List<FootBallPlayer> delanteros, List<FootBallPlayer> centros, List<FootBallPlayer> defensas)
     {
-
+        if (metric.text != "Ataque")
+            metric.text = "Ataque";
         //Defensas
         //Distribuimos los defensas repartiendolos por su zona, cubriendo el mayor area posible preparados para defender
         for (int i = 0; i < defensas.Count; i++)
@@ -154,11 +159,13 @@ public class HiveMind : MonoBehaviour
 
     public void defend(List<FootBallPlayer> delanteros, List<FootBallPlayer> centros, List<FootBallPlayer> defensas, List<FootBallPlayer> enemyPlayers)
     {
+        if (metric.text != "Defensa")
+            metric.text = "Defensa";
         //Delanteros
         for (int i = 0; i < delanteros.Count; i++) delanteros[i].goTo(posDelanteros[i]);
 
         //Centros
-        for(int i=0; i< centros.Count/2; i++)
+        for (int i = 0; i < centros.Count / 2; i++)
         {
             centros[i].goTo(new Vector3(centros[0].getLimitDefense(), centros[i].transform.position.y, centros[i].transform.position.z));
         }
@@ -168,11 +175,11 @@ public class HiveMind : MonoBehaviour
         foreach (FootBallPlayer defensa in defensas) otherPlayers.Add(defensa);
 
         FootBallPlayer owner = GameManager.getInstance().getBallOwner();
-        if(owner != null)
+        if (owner != null)
         {
             float minDist;
             Vector3 ballPos = GameManager.getInstance().getBallPosition();
-            
+
             minDist = float.MaxValue;
             FootBallPlayer closest = null;
             foreach (FootBallPlayer player in otherPlayers)
@@ -191,15 +198,15 @@ public class HiveMind : MonoBehaviour
         //El resto van a por el jugador mas cercano sin balon y lo cubren
         List<FootBallPlayer> enemies = new List<FootBallPlayer>(enemyPlayers);
         if (owner != null) enemies.Remove(owner);
-           
-        for(int i=0; i < otherPlayers.Count; i++)
+
+        for (int i = 0; i < otherPlayers.Count; i++)
         {
             float min = float.MaxValue;
             FootBallPlayer enemyToCover = null;
-            for(int j = 0; j < enemies.Count; j++)
+            for (int j = 0; j < enemies.Count; j++)
             {
                 float distance = Vector3.Distance(enemies[j].transform.position, otherPlayers[i].transform.position);
-                if(distance < min)
+                if (distance < min)
                 {
                     min = distance;
                     enemyToCover = enemies[j];

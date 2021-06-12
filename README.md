@@ -128,11 +128,14 @@ Pruebas:
 <a href="https://drive.google.com/file/d/1Q-BoiNxMI_vyfJaUR3EQ4r7FQ6x4314W/view?usp=sharing" target="_blank">Video Demostración de un partido con algunas posiciones cambiadas</a>.
 
 <a href="https://drive.google.com/file/d/1eMcdngAXUay9nGucBqrNud3gpW-DyoSU/view?usp=sharing" target="_blank">Video de Demostración del estado de ataque</a>.
+
 Para probar el estado de ataque basta con ponerle la velocidad a 0 a uno de los equipos.
 
 <a href="https://drive.google.com/file/d/1xPyljiYnc95vdLB_nZjStLybQi-WDjTr/view?usp=sharing" target="_blank">Video de Demostración del estado de defensa</a>.
+
 Para probar el estado de defensa basta con desactivar los centrocampistas (y hacerlos hijos de un objeto empty fuera de su equipo) y la mente colmena de uno de los equipos y al resto ponerle velocidad 0. Luego se le da el balón a ese equipo.
 
 <a href="https://drive.google.com/file/d/1SEoqC9dBmbyB6MdUaajQiUH7dEM3nk5R/view?usp=sharing" target="_blank">Video Demostración del desmarque</a>.
+
 Para probar el desmarque hay que desactivar gran parte de los jugadores de un equipo (y hacerlos hijos de un objeto empty fuera de su equipo) y su mente colmena. Posteriormente desactivar el comportamiento del delantero del equipo contrario y comentar el método de defensa de la máquina de estados. A partir de ahí se puede colocar un jugador del primer equipo entre el jugador con el balón y uno de sus compañeros y se verá como este último trata de desmarcarse.
 

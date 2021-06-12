@@ -139,3 +139,12 @@ Para probar el estado de defensa basta con desactivar los centrocampistas (y hac
 
 Para probar el desmarque hay que desactivar gran parte de los jugadores de un equipo (y hacerlos hijos de un objeto empty fuera de su equipo) y su mente colmena. Posteriormente desactivar el comportamiento del delantero del equipo contrario y comentar el método de defensa de la máquina de estados. A partir de ahí se puede colocar un jugador del primer equipo entre el jugador con el balón y uno de sus compañeros y se verá como este último trata de desmarcarse.
 
+
+En caso de error:
+-----------------
+Dirigirse a la carpeta OnError del repositorio. Allí se encuentran imágenes de qué objetos y valores hay que asignar a cada script.
+
+
+Contenido de terceros:
+----------------------
+El contenido de terceros usado en esta práctica se limita a la textura del campo de fútbol, imagen obtenida mediante Google Images y el uso de colliders en forma de cono, recurso obtenido de la Asset Store de Unity.

@@ -15,9 +15,9 @@ RESUMEN
 <a href="https://drive.google.com/file/d/1Gd6IE9nrVOpr-S7TkUCJnWHrVI3rEztR/view?usp=sharing" target="_blank">Enunciado de la práctica</a>.
 
 El objetivo del prototipo es diseñar una inteligencia artificial multicapa que sea capaz de jugar
-un partido de fútbol de forma lógica y correcta. Usaremos toma de decisiones para la
-IA multicapa y navegación para los jugadores. Nos centraremos en que los jugadores sepan
-atacar y defender correctamente, no en que sepan tirar a puerta o parar el balón correctamente.
+un partido de fútbol de forma lógica y correcta. Para ello, hemos usado toma de decisiones para la
+IA multicapa y navegación para los jugadores. Nos centramos en que los jugadores supieran
+atacar y defender correctamente, no en que supiran tirar a puerta o parar el balón de manera realista.
 Esto es debido a que la dirección óptima para el portero es hacia donde esté el balón y si
 siempre va hacia allí el partido transcurrirá en empate perpetuo, por lo que tanto la dirección de
 tiro del delantero como la de parada del portero serán aleatorias.
@@ -87,13 +87,17 @@ Durante el ataque, la estrategia consiste en colocar a los defensas de manera qu
 por el campo. La mitad de los centrocampistas hacen lo mismo, aunque colocándose en una posición algo más adelantada que los defensas.
 Por otra parte, el resto de los centrocampistas avanzan hacia su límite de ataque desmarcándose cuando entre el jugador con el balón
 y ellos se encuentra un contrincante. Los delanteros siguen este mismo comportamiento pero avanzando hasta una zona más cercana a
-la porte´ria contrincante.
+la portería contrincante.
 
 Para la defensa, se sigue un comportamiento parecido al del ataque pero de manera inversa. Los delanteros y la mitad de los
-centrocampistas se sitúan preparándose para el ataque igal que hacen los defensas y la mitad de los centrocampistas en ataque solo que
+centrocampistas se sitúan preparándose para el ataque igual que hacen los defensas y la mitad de los centrocampistas en ataque solo que
 en posiciones distintas. En cuanto al resto de los centrocampistas y los defensas, el jugador más cercano al balón va hacia él intentando
 robárselo al contrincante que lo tiene en posesión y el resto cubren cada uno al jugador más cercano que no haya sido ya cubierto.
 Para esto, se sitúan entre el jugador a cubrir y el jugador con el balón disminuyendo sus opciones de pase.
+
+En un principio pensamos en una estrategia más sólida, consistente en que cada miembro del equipo cubriera a un jugador rival para evitar que 
+el contrincante con el balón pasara, pero esta defensa resultó ser demasiado buena, ya que el partido avanzaba pero ningún equipo lograba marcar
+gol nunca.
 
 Objetivos desarrollados
 -----------------------------------------------------
@@ -113,7 +117,7 @@ Objetivos desarrollados
 Objetivos adicionales
 --------------------------
 * Se muestran métricas sobre el comportamiento de la IA en ejecución.
-	Se muestran los raycast que hacen los jugadores y su objetivo de desplazamiento.
+	Se muestran los Raycast que hacen los jugadores y su objetivo de desplazamiento.
 	se muestra el estado en el que se encuentra la "mente colmena".
 
 Pruebas:

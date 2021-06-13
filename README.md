@@ -27,18 +27,18 @@ PLANTEAMIENTO DEL PROYECTO
 El prototipo consiste en un campo de fútbol con 11 jugadores en
 cada equipo, dos porterías y muros invisibles que hacen rebotar el balón. Cada vez que un
 jugador toca el balón, éste pasa a ser llevado por el jugador que lo toca, evitando así
-tener que implementar robos de balón más complejos. Se utilizará el plugin de Behaviour
-Designer y opcionalmente Bolt.
+tener que implementar robos de balón más complejos. Se han utilizado los plugin de Behaviour
+Designer y Bolt.
 
 Los jugadores se organizan en diferentes roles, siendo estos delanteros, centrocampistas y defensas.
-Los delanteros chutan hacia la portería cuando estén a una determinada distancia de ella y tienen hueco
+Los delanteros chutan hacia la portería cuando están a una determinada distancia de ella y tienen hueco
 para hacerlo, y lo hacen hacia una dirección aleatoria de la portería para que no sea gol asegurado.
 
-Cuando los jugadores tienen el balón, son dirigidos por un arbol de comportamiento, distinto para cada
-rol en el equipo. Cuando no tienen el balón, son dirigidos por una "mente colmena" implementada como máquina de estados
-toma decisiones dependiendo de la situación del juego implementando así un comportamiento de equipo.
+Cuando los jugadores tienen el balón, son dirigidos por un árbol de comportamiento, distinto para cada
+rol en el equipo. Cuando no tienen el balón, son dirigidos por una "mente colmena" implementada como máquina de estados, que
+toma decisiones dependiendo de la situación del juego dando así como resultado un comportamiento de equipo.
 
-Además, hemos hehco que el tamaño del equipo y sus posiciones límite se puedan cambiar en el editor y la IA funcione y
+Además, hemos hehco que el tamaño del equipo y sus posiciones límite se puedan cambiar en el editor y la IA siga funcionando y
 hemos conseguido que no sea excesivamente determinista, ya que anque hay casos en los que las jugadas iniciales se repiten
 por partir de la misma posición, un mímimo cambio altera el resto del partido.
 
@@ -50,9 +50,9 @@ Comportamiento con el balón:
 Delanteros
 ------------
 Los delanteros son los encargados de marcar goles, y como tal, tiran a portería siempre que les sea posible (por distancia y hueco).
-Si no pueden tirar, avanza hacia la portería mientras que ningún jugador contrincante se interponga en su camino.
-Si además de no poder tirar, no puede avanzar porque hay un contrincante en mitad del camino, intenta pasar el balón al
-jugador más adelantado. En caso de tampoco poder pasarla, sin nada que perder chuta a portería.
+Si no pueden tirar, avanzan hacia la portería mientras que ningún jugador contrincante se interponga en su camino.
+Si además de no poder tirar, no pueden avanzar porque hay un contrincante en mitad del camino, intentan pasar el balón al
+jugador más adelantado. En caso de tampoco poder pasarla, sin nada que perder chutan a portería.
 
 * Árbol de decisiones del delantero: 
 ![Árbol de decisiones del delantero](Doc/Delantero.PNG?raw=true)
@@ -118,7 +118,7 @@ Objetivos adicionales
 --------------------------
 * Se muestran métricas sobre el comportamiento de la IA en ejecución.
 	Se muestran los Raycast que hacen los jugadores y su objetivo de desplazamiento.
-	se muestra el estado en el que se encuentra la "mente colmena".
+	Se muestra el estado en el que se encuentra la "mente colmena".
 
 Pruebas:
 ---------
